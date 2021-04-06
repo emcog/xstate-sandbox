@@ -3,7 +3,7 @@
 	import CBuffer from '$lib/phab/js/modules/cbuffer.js';
 	import { easing } from '$lib/phab/js/modules/easings.js';
 	// import OnboardPhab from '../components/OnboardPhab.svelte';
-	import wordmark from '/static/wordmark.svg';
+
 
 	const pHoldCount4 = new CBuffer(4); // buffer of last 4 presses in milliseconds
 	const initialiseBreath = 6000; //ms
@@ -365,6 +365,61 @@
 </script>
 
 
+
+
+<div class="gradient-bg fill-the-view">
+
+	<div class="feedback-onboarding-wrapper">
+<!--		<img src={wordmark} alt="phab" class="logo"/>-->
+		<div data-sizing="px" id="feedback-circle"></div>
+
+		<div id='signifier__circle-outline' class='on-boarding-wrapper'></div>
+
+			<PressHoldButton />
+
+
+		<!--  onboarding start      -->
+
+			<PhabTextDisplay />
+		{#if !onBoardPhab.skipped }
+<!--			<div class="on-boarding-wrapper" bind:this={onBoardingWrapperNode}>-->
+<!--				<img bind:this={ pressAndHoldTheButton.node } src="{ pressAndHoldTheButton.instruction }"   class="fade-in-out z-10"         alt="press and hold the button" />-->
+<!--				<img bind:this={ keepingGoing.node }          src="{ keepingGoing.instruction }"            class="hidden fade-in-out z-10"  alt="keep going"/>-->
+<!--				<img bind:this={ thatIsGreat.node }           src="{ thatIsGreat.instruction }"             class="hidden fade-in-out z-10"  alt="thats great" />-->
+<!--				<img bind:this={ nowReleaseAndWait.node }     src="{ nowReleaseAndWait.instruction }"       class="hidden fade-in-out z-10"  alt="now release" />-->
+<!--				<img bind:this={ waitALittleLonger.node }     src="{ waitALittleLonger.instruction }"       class="hidden fade-in-out z-10"  alt="wait a little longer" />-->
+<!--				<img bind:this={ now.node }                   src="{ now.instruction }"                     class="hidden fade-in-out z-10"  alt="next" />-->
+<!--				<img bind:this={ tryPressingLonger.node }     src="{ tryPressingLonger.instruction }"       class="hidden fade-in-out z-10"  alt="press hold and breathe in" />-->
+<!--				<img bind:this={ dontPressJustYet.node }      src="{ dontPressJustYet.instruction }"     class="hidden fade-in-out"  alt="press hold and breathe in" />-->
+<!--			</div>-->
+		{/if}
+
+
+
+
+
+		<!--  onboarding end  -->
+
+
+		<button id="press-hold-button"
+						on:mousedown={handlePressHoldStart}
+						on:touchstart={handlePressHoldStart}
+						on:mouseup={handlePressHoldRelease}
+						on:touchend={handlePressHoldRelease}>
+		</button>
+
+		<button on:click={skipOnBoarding } class="">Hide text</button>
+
+
+</div>
+</div>
+
+
+
+
+
+
+
 <style>
     .feedback-onboarding-wrapper {
         width: 100%;
@@ -459,8 +514,8 @@
 
     .gradient-bg{ background-image: linear-gradient(to bottom, #7de3a9, #5fc189 21%, #1b442d 95%); }
 
-		#signifier__circle-outline {
-				border-radius: 999%;
+    #signifier__circle-outline {
+        border-radius: 999%;
 
         width: 302px;
         height: 302px;
@@ -486,9 +541,9 @@
         grid-row: 2/3;
     }
 
-		.above-button {
-				grid-column: 2/3;
-		}
+    .above-button {
+        grid-column: 2/3;
+    }
 
     .hidden { display: none; }
 
@@ -501,49 +556,3 @@
     }
 
 </style>
-
-
-<div class="gradient-bg fill-the-view">
-
-	<div class="feedback-onboarding-wrapper">
-<!--		<img src={wordmark} alt="phab" class="logo"/>-->
-		<div data-sizing="px" id="feedback-circle"></div>
-
-		<div id='signifier__circle-outline' class='on-boarding-wrapper'></div>
-
-			<PressHoldButton />
-
-
-		<!--  onboarding start      -->
-
-			<PhabTextDisplay />
-		{#if !onBoardPhab.skipped }
-<!--			<div class="on-boarding-wrapper" bind:this={onBoardingWrapperNode}>-->
-<!--				<img bind:this={ pressAndHoldTheButton.node } src="{ pressAndHoldTheButton.instruction }"   class="fade-in-out z-10"         alt="press and hold the button" />-->
-<!--				<img bind:this={ keepingGoing.node }          src="{ keepingGoing.instruction }"            class="hidden fade-in-out z-10"  alt="keep going"/>-->
-<!--				<img bind:this={ thatIsGreat.node }           src="{ thatIsGreat.instruction }"             class="hidden fade-in-out z-10"  alt="thats great" />-->
-<!--				<img bind:this={ nowReleaseAndWait.node }     src="{ nowReleaseAndWait.instruction }"       class="hidden fade-in-out z-10"  alt="now release" />-->
-<!--				<img bind:this={ waitALittleLonger.node }     src="{ waitALittleLonger.instruction }"       class="hidden fade-in-out z-10"  alt="wait a little longer" />-->
-<!--				<img bind:this={ now.node }                   src="{ now.instruction }"                     class="hidden fade-in-out z-10"  alt="next" />-->
-<!--				<img bind:this={ tryPressingLonger.node }     src="{ tryPressingLonger.instruction }"       class="hidden fade-in-out z-10"  alt="press hold and breathe in" />-->
-<!--				<img bind:this={ dontPressJustYet.node }      src="{ dontPressJustYet.instruction }"     class="hidden fade-in-out"  alt="press hold and breathe in" />-->
-<!--			</div>-->
-		{/if}
-
-
-
-		<!--  onboarding end  -->
-
-
-		<button id="press-hold-button"
-						on:mousedown={handlePressHoldStart}
-						on:touchstart={handlePressHoldStart}
-						on:mouseup={handlePressHoldRelease}
-						on:touchend={handlePressHoldRelease}>
-		</button>
-
-		<button on:click={skipOnBoarding } class="">Hide text</button>
-
-
-</div>
-</div>

@@ -1,9 +1,17 @@
 <script>
 	import Phab from '$lib/Phab.svelte';
+	import PressHoldButton from '../lib/PressHoldButton.svelte';
+
+
+	const handleButtonStatus = (event) => {
+		console.log(event, 'simple');
+
+	};
+
 </script>
 
 <main>
-	<Phab />
+	<PressHoldButton on: />
 
 
 </main>
