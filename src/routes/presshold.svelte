@@ -1,9 +1,5 @@
 <script>
 	import PressHoldContainer from '../lib/PressHoldContainer.svelte';
-
-
-
-
 </script>
 
 <div>

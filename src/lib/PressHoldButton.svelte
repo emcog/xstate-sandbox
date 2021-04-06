@@ -9,16 +9,25 @@
 	const handleMouseDown = () => {
 		buttonDown = true;
 		dispatch('buttonStatus', {
-				text: 'true'
+				buttonDown,
+				someOtherText: "Foo",
+				aMethod:  function(){
+					console.log('Foo')
+				}
 			}
-			// buttonDown = true;
 		)
 	}
+
+
 
 	const handleMouseUp = () => {
 		buttonDown = false;
 		dispatch('buttonStatus', {
-			text: 'false'
+			buttonDown,
+			someOtherText: "Bar",
+			aMethod:  function(){
+				console.log('bar')
+				}
 			}
 		)
 	}

@@ -3,7 +3,8 @@
 	import PressHoldButton from './PressHoldButton.svelte';
 
 	const handleButtonStatus = (event) => {
-		console.log(event.detail, 'handleButtonStatus')
+		event.detail.aMethod()
+		// console.log(event.detail.aMethod(), 'handleButtonStatus')
 	}
 
 </script>
