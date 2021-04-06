@@ -131,6 +131,8 @@
 	import rtb from '../../static/onboarding/rtb.svg';
 	import lsa from '../../static/onboarding/lsa.svg';
 	import PhabTextDisplay from './PhabTextDisplay.svelte';
+	import PressHoldButton from './PressHoldButton.svelte';
+	import Counter from './Counter.svelte';
 
 
 	let onBoardingWrapperNode;
@@ -509,10 +511,12 @@
 
 		<div id='signifier__circle-outline' class='on-boarding-wrapper'></div>
 
+			<PressHoldButton />
+
 
 		<!--  onboarding start      -->
 
-			<PhabTextDisplay class='above-button' />
+			<PhabTextDisplay />
 		{#if !onBoardPhab.skipped }
 <!--			<div class="on-boarding-wrapper" bind:this={onBoardingWrapperNode}>-->
 <!--				<img bind:this={ pressAndHoldTheButton.node } src="{ pressAndHoldTheButton.instruction }"   class="fade-in-out z-10"         alt="press and hold the button" />-->
@@ -540,5 +544,6 @@
 
 		<button on:click={skipOnBoarding } class="">Hide text</button>
 
-	</div>
+
+</div>
 </div>
