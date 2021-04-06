@@ -13,6 +13,9 @@
 				someOtherText: "Foo",
 				aMethod:  function(){
 					console.log('Foo')
+				},
+				aNMethod:  function(){
+					down = false;
 				}
 			}
 		)
@@ -27,6 +30,9 @@
 			someOtherText: "Bar",
 			aMethod:  function(){
 				console.log('bar')
+				},
+				aNMethod:  function(){
+				down = true;
 				}
 			}
 		)
