@@ -3,8 +3,6 @@
 </script>
 
 <main>
-	<h1>Hello world!</h1>
-
 	<Phab />
 
 

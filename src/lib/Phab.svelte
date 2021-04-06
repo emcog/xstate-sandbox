@@ -1,5 +1,5 @@
 <script>
-	import {onMount} from 'svelte';
+	import { onMount } from 'svelte';
 	import CBuffer from '$lib/phab/js/modules/cbuffer.js';
 	import { easing } from '$lib/phab/js/modules/easings.js';
 	// import OnboardPhab from '../components/OnboardPhab.svelte';
@@ -26,7 +26,9 @@
 	let elapsedTimeDown;
 
 	// onMount(() => {finish = window.innerWidth*.9;})
-	onMount(() => {finish = window.innerWidth*.98;})
+	onMount(() => {
+		finish = window.innerWidth * .98;
+	});
 
 
 	const handlePressHoldStart = (e) => {
@@ -37,14 +39,13 @@
 		// Cancel the ease down function
 		cancelAnimationFrame(loopingDecrementId);
 		// Measure duration of PressHold & Interval
-		performance.clearMarks("01PhStart", "02PhEndIntStart"); //clear any previous markers
-		performance.mark("01PhStart"); //mark the start of the PressHold
-		let firstMark = performance.getEntriesByName("01PhStart", "mark");
+		performance.clearMarks('01PhStart', '02PhEndIntStart'); //clear any previous markers
+		performance.mark('01PhStart'); //mark the start of the PressHold
+		let firstMark = performance.getEntriesByName('01PhStart', 'mark');
 		// console.log('first mark = ',firstMark);
 		// Run the looping function
 		loopingIncrement();
-	}
-
+	};
 
 
 	//TODO initialise measurePH on load of document, i.e outside of a function & inside global scope
@@ -54,17 +55,21 @@
 		elapsedTimeUp = 0;
 		// Stop looping function;
 		cancelAnimationFrame(loopingIncrementId);
-		performance.mark("02PhEndIntStart"); // mark the end of the PressHold & start of Interval
-		performance.measure("pressing", "01PhStart", "02PhEndIntStart"); //calculate the PressHold duration
-		markPressHold = performance.getEntriesByName("pressing", "measure"); //returns an array value
+		performance.mark('02PhEndIntStart'); // mark the end of the PressHold & start of Interval
+		performance.measure('pressing', '01PhStart', '02PhEndIntStart'); //calculate the PressHold duration
+		markPressHold = performance.getEntriesByName('pressing', 'measure'); //returns an array value
 		// Define press hold by previous press hold duration, if there is no previous, then define by the initialisation value
 		// if (markPressHold.length < 2) { lastPhDuration = initialiseBreath; } else { lastPhDuration = markPressHold.pop().duration; }
-		if (markPressHold.length < 100) { lastPhDuration = initialiseBreath; } else { lastPhDuration = markPressHold.pop().duration; }
+		if (markPressHold.length < 100) {
+			lastPhDuration = initialiseBreath;
+		} else {
+			lastPhDuration = markPressHold.pop().duration;
+		}
 		// Push the last press hold duration to buffer
 		pHoldCount4.push(lastPhDuration);
 		// Run notHolding loop
 		loopingDecrement();
-	}
+	};
 
 
 	const loopingIncrement = () => {
@@ -78,11 +83,13 @@
 		//store size to pass to loopingDecrement
 		sizeOnRelease = size;
 		//if the size value is greater than available screen space, stop the animation but keep the counter running
-		if (size >= finish) { size = finish }
+		if (size >= finish) {
+			size = finish;
+		}
 		// represent the changes in the GUI
 		changeSize();
 		onBoardingControlFlow();
-	}
+	};
 
 
 	const loopingDecrement = () => {
@@ -92,22 +99,22 @@
 		//below works because it is a positive difference ie. start to sizeOnRelease, therefore subtract the existing positive from the incrementally increasing positive to shrink the size
 		size = sizeOnRelease - easing.easeOutSine(elapsedTimeDown * 1000 / lastPhDuration, elapsedTimeDown * 1000, start, sizeOnRelease, lastPhDuration);
 		//create a value to pass easeUpUsingTime()
-		sizeOnPress = size
+		sizeOnPress = size;
 		//  stop this loop if size gets to 1
-		if (size <= 1 ) { cancelAnimationFrame(loopingDecrementId); }
+		if (size <= 1) {
+			cancelAnimationFrame(loopingDecrementId);
+		}
 		// represent the changes in the GUI
 		changeSize();
 		onBoardingControlFlow();
-	}
+	};
 
 
 	function changeSize() {
 		let driver = size;
-		const suffix = "px";
+		const suffix = 'px';
 		document.documentElement.style.setProperty(`--size`, driver + suffix);
 	}
-
-
 
 
 	//  ------>   onboarding here
@@ -123,7 +130,7 @@
 	import dpjy from '../../static/onboarding/dpjy.svg';
 	import rtb from '../../static/onboarding/rtb.svg';
 	import lsa from '../../static/onboarding/lsa.svg';
-
+	import PhabTextDisplay from './PhabTextDisplay.svelte';
 
 
 	let onBoardingWrapperNode;
@@ -143,85 +150,109 @@
 			pressAndHoldTheButton: {
 				requiredMinDuration: 50,
 				passed: false,
-				get interrupted() { onBoardPhab.progress.pressAndHoldTheButton.instruction },
+				get interrupted() {
+					onBoardPhab.progress.pressAndHoldTheButton.instruction;
+				},
 				node: undefined,
-				instruction: onBoardPhab01,
+				instruction: onBoardPhab01
 
 			},
 			keepingGoing: {
 				requiredMinDuration: 100,
 				passed: false,
-				get interrupted() { onBoardPhab.progressInterrupted.tryPressingLonger.instruction },
+				get interrupted() {
+					onBoardPhab.progressInterrupted.tryPressingLonger.instruction;
+				},
 				node: undefined,
-				instruction: onBoardPhab02,
+				instruction: onBoardPhab02
 			},
 			thatIsGreat: {
 				requiredMinDuration: 200,
 				passed: false,
-				get interrupted() { tryPressingLonger.instruction },
+				get interrupted() {
+					tryPressingLonger.instruction;
+				},
 				node: undefined,
-				instruction: onBoardPhab03,
+				instruction: onBoardPhab03
 			},
 			nowReleaseAndWait: {
 				requiredMinDuration: 400,
 				passed: false,
-				get interrupted() { dontPressJustYet.instruction },
+				get interrupted() {
+					dontPressJustYet.instruction;
+				},
 				node: undefined,
-				instruction: onBoardPhab04,
+				instruction: onBoardPhab04
 			},
 			waitALittleLonger: {
 				requiredDuration: 200,
 				passed: false,
-				get interrupted() { tryPressingLonger.instruction },
+				get interrupted() {
+					tryPressingLonger.instruction;
+				},
 				node: undefined,
-				instruction: onBoardPhab05,
+				instruction: onBoardPhab05
 			},
 			now: {
 				requiredDuration: 40,
 				passed: false,
 				node: undefined,
-				instruction: onBoardPhab06,
+				instruction: onBoardPhab06
 			},
 			pressHoldAndBreathe: {
 				requiredDuration: 10,
 				passed: false,
-				get interrupted() { tryPressingLonger.instruction },
+				get interrupted() {
+					tryPressingLonger.instruction;
+				},
 				node: undefined,
-				instruction: onBoardPhab07,
+				instruction: onBoardPhab07
 			}
 		},
 		progressInterrupted: {
 			tryPressingLonger: {
 				passed: false,
-				get progress() { keepingGoing.instruction },
+				get progress() {
+					keepingGoing.instruction;
+				},
 				node: undefined,
-				instruction: tpl,
+				instruction: tpl
 			},
 			dontPressJustYet: {
 				requiredDuration: 700,
 				passed: false,
-				get progress() { waitALittleLonger.instruction },
-				get interrupted () { releaseTheButton.instruction },
+				get progress() {
+					waitALittleLonger.instruction;
+				},
+				get interrupted() {
+					releaseTheButton.instruction;
+				},
 				node: undefined,
-				instruction: dpjy,
+				instruction: dpjy
 			},
 			releaseTheButton: {
 				requiredDuration: 700,
 				passed: false,
-				get progress() { waitALittleLonger.instruction },
-				get interrupted() { letsStartAgain },
+				get progress() {
+					waitALittleLonger.instruction;
+				},
+				get interrupted() {
+					letsStartAgain;
+				},
 				node: undefined,
-				instruction: rtb,
+				instruction: rtb
 			},
 			letsStartAgain: {
 				requiredDuration: 700,
 				passed: false,
-				get progress() { pressAndHoldTheButton.instruction },
+				get progress() {
+					pressAndHoldTheButton.instruction;
+				},
 				node: undefined,
-				instruction: lsa,
+				instruction: lsa
 			}
 		}
-	}
+	};
 
 	//destructure onBoardPhab
 	const {
@@ -238,87 +269,89 @@
 		tryPressingLonger,
 		dontPressJustYet,
 		releaseTheButton,
-		letsStartAgain,
+		letsStartAgain
 	} = onBoardPhab.progressInterrupted;
 
 
-	function skipOnBoarding() { onBoardPhab.skipped = true }
+	function skipOnBoarding() {
+		onBoardPhab.skipped = true;
+	}
 
 
 	function onBoardingControlFlow() {
 
 		// check skipped or peviously completed
-		if ( !onBoardPhab.progress.passedAll ) {
+		if (!onBoardPhab.progress.passedAll) {
 
 			// check pressAndHoldTheButton
-			if( !pressAndHoldTheButton.passed ) {
+			if (!pressAndHoldTheButton.passed) {
 				console.log('onBoardingControlFlow', pressAndHoldTheButton.passed);
 				console.log('onBoardingControlFlow', size);
-				if(pressAndHoldTheButton.requiredMinDuration <= size && pointerIsDown ) {
+				if (pressAndHoldTheButton.requiredMinDuration <= size && pointerIsDown) {
 					pressAndHoldTheButton.passed = true;
 					pressAndHoldTheButton.node.classList.add('hidden');
 					keepingGoing.node.classList.remove('hidden');
 				} else {
-					pressAndHoldTheButton.interrupted
+					pressAndHoldTheButton.interrupted;
 				}
 
 				// check keepingGoing
-			} else if( !keepingGoing.passed ) {
-				if(keepingGoing.requiredMinDuration <= size && pointerIsDown ) {
+			} else if (!keepingGoing.passed) {
+				if (keepingGoing.requiredMinDuration <= size && pointerIsDown) {
 					keepingGoing.passed = true;
-					keepingGoing.node.classList.add('hidden')
-					thatIsGreat.node.classList.remove('hidden')
+					keepingGoing.node.classList.add('hidden');
+					thatIsGreat.node.classList.remove('hidden');
 				} else {
-					keepingGoing.interrupted
+					keepingGoing.interrupted;
 				}
 
 				//check thatIsGreat
-			} else if( !thatIsGreat.passed ) {
-				if(thatIsGreat.requiredMinDuration <= size && pointerIsDown ) {
+			} else if (!thatIsGreat.passed) {
+				if (thatIsGreat.requiredMinDuration <= size && pointerIsDown) {
 					thatIsGreat.passed = true;
-					thatIsGreat.node.classList.add('hidden')
-					nowReleaseAndWait.node.classList.remove('hidden')
+					thatIsGreat.node.classList.add('hidden');
+					nowReleaseAndWait.node.classList.remove('hidden');
 				} else {
-					thatIsGreat.interrupted
+					thatIsGreat.interrupted;
 				}
 
 				// chek nowReleaseAndWait
-			} else if( !nowReleaseAndWait.passed ) {
-				if(nowReleaseAndWait.requiredMinDuration <= size && pointerIsDown ) {
+			} else if (!nowReleaseAndWait.passed) {
+				if (nowReleaseAndWait.requiredMinDuration <= size && pointerIsDown) {
 					nowReleaseAndWait.passed = true;
-					nowReleaseAndWait.node.classList.add('hidden')
-					waitALittleLonger.node.classList.remove('hidden')
+					nowReleaseAndWait.node.classList.add('hidden');
+					waitALittleLonger.node.classList.remove('hidden');
 				} else {
-					nowReleaseAndWait.interrupted
+					nowReleaseAndWait.interrupted;
 				}
 
 				// check waitALittleLonger
-			} else if( !waitALittleLonger.passed ) {
-				if(waitALittleLonger.requiredMinDuration >= size && pointerIsDown ) {
+			} else if (!waitALittleLonger.passed) {
+				if (waitALittleLonger.requiredMinDuration >= size && pointerIsDown) {
 					waitALittleLonger.passed = true;
-					waitALittleLonger.node.classList.add('hidden')
-					now.node.classList.remove('hidden')
+					waitALittleLonger.node.classList.add('hidden');
+					now.node.classList.remove('hidden');
 				} else {
-					waitALittleLonger.interrupted
+					waitALittleLonger.interrupted;
 				}
 
 				// check now
-			} else if( !now.passed ) {
-				if(now.requiredMinDuration >= size && pointerIsDown ) {
+			} else if (!now.passed) {
+				if (now.requiredMinDuration >= size && pointerIsDown) {
 					now.passed = true;
-					now.node.classList.add('hidden')
-					pressHoldAndBreathe.node.classList.remove('hidden')
+					now.node.classList.add('hidden');
+					pressHoldAndBreathe.node.classList.remove('hidden');
 				} else {
-					now.interrupted
+					now.interrupted;
 				}
 
 				// pressHoldAndBreathe
-			} else if( !now.passed ) {
-				if(pressHoldAndBreathe.requiredMinDuration >= size && pointerIsDown ) {
+			} else if (!now.passed) {
+				if (pressHoldAndBreathe.requiredMinDuration >= size && pointerIsDown) {
 					pressHoldAndBreathe.passed = true;
-					pressHoldAndBreathe.node.classList.add('hidden')
+					pressHoldAndBreathe.node.classList.add('hidden');
 				} else {
-					pressHoldAndBreathe.interrupted
+					pressHoldAndBreathe.interrupted;
 				}
 			} else {
 				onBoardPhab.progress.passedAll = true;
@@ -422,7 +455,21 @@
 
 
 
-    .gradient-bg{ background-image: linear-gradient(to bottom, #67f5a4, #58d68e 22%, #5fc189 72%, #599f77 95%); }
+    .gradient-bg{ background-image: linear-gradient(to bottom, #7de3a9, #5fc189 21%, #1b442d 95%); }
+
+		#signifier__circle-outline {
+				border-radius: 999%;
+
+        width: 302px;
+        height: 302px;
+        margin: 0 auto;
+        -webkit-filter: blur(2px);
+        filter: blur(2px);
+        /*box-shadow: 0 0 31px 0 rgba(100, 100, 100, 0.5);*/
+        box-shadow: inset 0 0 31px 0 rgba(255, 255, 255, 0.125), 0 0 31px 0 rgba(255, 255, 255, 0.125) ;
+        border: solid 3px rgba(0, 0, 0, 0.25);
+
+    }
 
     .fill-the-view {
         width: 100vw;
@@ -453,23 +500,26 @@
 <div class="gradient-bg fill-the-view">
 
 	<div class="feedback-onboarding-wrapper">
-		<img src={wordmark} alt="phab" class="logo"/>
+<!--		<img src={wordmark} alt="phab" class="logo"/>-->
 		<div data-sizing="px" id="feedback-circle"></div>
+
+		<div id='signifier__circle-outline' class='on-boarding-wrapper'></div>
 
 
 		<!--  onboarding start      -->
 
+			<PhabTextDisplay />
 		{#if !onBoardPhab.skipped }
-			<div class="on-boarding-wrapper" bind:this={onBoardingWrapperNode}>
-				<img bind:this={ pressAndHoldTheButton.node } src="{ pressAndHoldTheButton.instruction }"   class="fade-in-out z-10"         alt="press and hold the button" />
-				<img bind:this={ keepingGoing.node }          src="{ keepingGoing.instruction }"            class="hidden fade-in-out z-10"  alt="keep going"/>
-				<img bind:this={ thatIsGreat.node }           src="{ thatIsGreat.instruction }"             class="hidden fade-in-out z-10"  alt="thats great" />
-				<img bind:this={ nowReleaseAndWait.node }     src="{ nowReleaseAndWait.instruction }"       class="hidden fade-in-out z-10"  alt="now release" />
-				<img bind:this={ waitALittleLonger.node }     src="{ waitALittleLonger.instruction }"       class="hidden fade-in-out z-10"  alt="wait a little longer" />
-				<img bind:this={ now.node }                   src="{ now.instruction }"                     class="hidden fade-in-out z-10"  alt="next" />
-				<img bind:this={ tryPressingLonger.node }     src="{ tryPressingLonger.instruction }"       class="hidden fade-in-out z-10"  alt="press hold and breathe in" />
-				<img bind:this={ dontPressJustYet.node }      src="{ dontPressJustYet.instruction }"     class="hidden fade-in-out"  alt="press hold and breathe in" />
-			</div>
+<!--			<div class="on-boarding-wrapper" bind:this={onBoardingWrapperNode}>-->
+<!--				<img bind:this={ pressAndHoldTheButton.node } src="{ pressAndHoldTheButton.instruction }"   class="fade-in-out z-10"         alt="press and hold the button" />-->
+<!--				<img bind:this={ keepingGoing.node }          src="{ keepingGoing.instruction }"            class="hidden fade-in-out z-10"  alt="keep going"/>-->
+<!--				<img bind:this={ thatIsGreat.node }           src="{ thatIsGreat.instruction }"             class="hidden fade-in-out z-10"  alt="thats great" />-->
+<!--				<img bind:this={ nowReleaseAndWait.node }     src="{ nowReleaseAndWait.instruction }"       class="hidden fade-in-out z-10"  alt="now release" />-->
+<!--				<img bind:this={ waitALittleLonger.node }     src="{ waitALittleLonger.instruction }"       class="hidden fade-in-out z-10"  alt="wait a little longer" />-->
+<!--				<img bind:this={ now.node }                   src="{ now.instruction }"                     class="hidden fade-in-out z-10"  alt="next" />-->
+<!--				<img bind:this={ tryPressingLonger.node }     src="{ tryPressingLonger.instruction }"       class="hidden fade-in-out z-10"  alt="press hold and breathe in" />-->
+<!--				<img bind:this={ dontPressJustYet.node }      src="{ dontPressJustYet.instruction }"     class="hidden fade-in-out"  alt="press hold and breathe in" />-->
+<!--			</div>-->
 		{/if}
 
 

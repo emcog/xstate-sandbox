@@ -1,7 +1,7 @@
 // refernece https://timdeschryver.dev/blog/how-to-test-svelte-components
 
 // import Counter from '$lib/Counter.svelte'
-import Counter from '../src/lib/Counter.svelte'
+import Counter from 'src/lib/Counter.svelte'
 import { render, fireEvent } from '@testing-library/svelte'
 
 
