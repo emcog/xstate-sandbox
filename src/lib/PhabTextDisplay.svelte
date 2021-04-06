@@ -2,4 +2,9 @@
 	let text = "text to display"
 </script>
 <span>{text}</span>
-<style></style>
+<style>
+	span {
+			color: white;
+			margin: 0 auto 200px auto;
+	}
+</style>

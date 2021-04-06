@@ -484,6 +484,10 @@
         grid-row: 2/3;
     }
 
+		.above-button {
+				grid-column: 2/3;
+		}
+
     .hidden { display: none; }
 
     .fade-in-out{
@@ -508,7 +512,7 @@
 
 		<!--  onboarding start      -->
 
-			<PhabTextDisplay />
+			<PhabTextDisplay class='above-button' />
 		{#if !onBoardPhab.skipped }
 <!--			<div class="on-boarding-wrapper" bind:this={onBoardingWrapperNode}>-->
 <!--				<img bind:this={ pressAndHoldTheButton.node } src="{ pressAndHoldTheButton.instruction }"   class="fade-in-out z-10"         alt="press and hold the button" />-->
