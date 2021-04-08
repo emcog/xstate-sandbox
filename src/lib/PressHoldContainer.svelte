@@ -84,7 +84,7 @@
 <div>
 <PressHoldButton on:buttonUp={startReleaseFinishPressHold} on:buttonDown={startPressHoldFinishRelease} />
 
-<div class="gradient-bg fill-the-view">
+
 
 	<div class="feedback-onboarding-wrapper">
 		<!--		<img src={wordmark} alt="phab" class="logo"/>-->
@@ -106,7 +106,6 @@
 		<button class="">Hide text</button>
 
 	</div>
-</div>
 </div>
 
 
@@ -135,7 +134,7 @@
       }
 
 
-      .gradient-bg{ background-image: linear-gradient(to bottom, #7de3a9, #5fc189 21%, #1b442d 95%); }
+
 
       #signifier__circle-outline {
           border-radius: 999%;
@@ -151,9 +150,5 @@
 
       }
 
-      .fill-the-view {
-          width: 100vw;
-          height: 100vh;
-      }
 
 	</style>
