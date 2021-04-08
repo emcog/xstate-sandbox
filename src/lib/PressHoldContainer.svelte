@@ -32,8 +32,6 @@
 	let countUp = 0;
 	let countDown = 0;
 
-
-
 	let finish = onMount(() => { finish = window.innerWidth * .98; });
 
 	// ----> Utilities start
@@ -41,9 +39,8 @@
 	const measureDurationOfPressHold1of2 = () => {
 		performance.clearMarks('01PhStart', '02PhEndIntStart'); //clear any previous markers
 		performance.mark('01PhStart'); //mark the start of the PressHold
-		// --- > Comment in to print out
-		let firstMark = performance.getEntriesByName('01PhStart', 'mark');
-		console.log('first mark = ',firstMark);
+		// let firstMark = performance.getEntriesByName('01PhStart', 'mark');
+		// console.log('first mark = ',firstMark);
 	}
 
 	const measureDurationOfPressHold2of2 = () => {
@@ -62,9 +59,8 @@
 	}
 
 	const changeSize = () => {
-		let driver = size;
 		const suffix = 'px';
-		document.documentElement.style.setProperty(`--size`, driver + suffix);
+		document.documentElement.style.setProperty(`--size`, size + suffix);
 	}
 
 	// ----> Utilites end
@@ -93,7 +89,7 @@
 		loopingIncrementId = requestAnimationFrame(loopingIncrement);
 		//store size to pass to loopingDecrement
 		sizeOnRelease = size;
-		console.log( countUp, sizeOnPress, finish, pHoldCount4.avg(), initialiseBreath)
+		console.log( 'countUp', countUp, 'size on press', sizeOnPress, 'finish', finish, 'phC4 avg', pHoldCount4.avg(), 'initalB', initialiseBreath)
 		changeSize();
 	};
 
@@ -116,13 +112,32 @@
 
 
 <div>
-	<PressHoldButton on:buttonUp={startReleaseFinishPressHold} on:buttonDown={startPressHoldFinishRelease} />
 	<ExpandingCollapsingCircle />
 	<PhabTextDisplay />
+	<PressHoldButton on:buttonUp={startReleaseFinishPressHold} on:buttonDown={startPressHoldFinishRelease} />
 	<button class="">Hide text</button>
-
 </div>
 
 
-	<style>
-	</style>
+<style>
+	div {
+      display: grid;
+      grid-template-columns: 1fr 375px 1fr;
+      grid-template-rows: 2.625fr 375px repeat(3, 1fr);
+      width: 100%;
+      height: 100%;
+	}
+
+	button {
+      grid-column: 2/3;
+      grid-row: 5/6;
+			justify-self: center;
+      margin: 50px 0;
+			max-width: 100px;
+			text-decoration: underline;
+			background: none;
+			padding: 0;
+			border: none;
+			color: white;
+	}
+</style>

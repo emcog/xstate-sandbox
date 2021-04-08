@@ -43,6 +43,7 @@
 <style>
 
     #press-hold-button {
+				z-index: 10;
         grid-column: 2/3;
         grid-row: 4/5;
         justify-self: center;
@@ -74,21 +75,13 @@
 
 
     @-webkit-keyframes fade-in-out {
-        0%, to { border-color: rgba(255, 255, 255, 1);
-        }
-        50% {
-            /*background-color: #fff;*/
-            border-color: rgba(255, 255, 255, 0.5);
-        }
+        0%, to { border-color: rgba(255, 255, 255, 1) }
+        50% { border-color: rgba(255, 255, 255, 0.5) }
     }
 
     @keyframes fade-in-out {
-        0%, to {
-            border-color: rgba(255, 255, 255, 1);
-        }
-        50% {
-            border-color: rgba(255, 255, 255, 0);
-        }
+        0%, to { border-color: rgba(255, 255, 255, 1) }
+        50% { border-color: rgba(255, 255, 255, 0) }
     }
 
 
