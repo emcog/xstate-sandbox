@@ -1,29 +1,11 @@
 <script>
-
+	// ---> Svelte core
+	import { onMount } from 'svelte';
+// ---> Svelte component
 	import PressHoldButton from './PressHoldButton.svelte'
-
-	const heardButtonIsDown  = () => { pressHoldStartAndReleaseEnd() }
-	const heardButtonIsUp = () => { pressHoldEndAndReleaseStart() }
-
-
-	const pressHoldStartAndReleaseEnd = () => {
-		console.log("press hold has Started")
-		handlePressHoldStart()
-	}
-
-	const pressHoldEndAndReleaseStart = () => {
-		console.log("press Hold End And Release Start")
-		handlePressHoldRelease()
-	}
-
-
-
-	// ---->
-	// PHAB copy and paste
 	import PhabTextDisplay from '$lib/PhabTextDisplay.svelte'
 
 	// ---> JS components
-	import { onMount } from 'svelte';
 	import CBuffer from '$lib/phab/js/modules/cbuffer.js';
 	import { easing } from '$lib/phab/js/modules/easings.js';
 
@@ -40,56 +22,67 @@
 	const fps = 60;
 
 	let start = 0;
-	let finish;
+
 	let sizeOnPress;
 	let sizeOnRelease;
-	let size;
+	let size = 0;
 
 	// initialise elapsedTimeUp with a value so counter works on first use
 	let elapsedTimeUp = 0;
 	let elapsedTimeDown;
 
 
-	let counter = 0;
+
+	let finish = onMount(() => { finish = window.innerWidth * .98; });
 
 
-	// ---> Functions
-	// onMount(() => {finish = window.innerWidth*.9;})
-	onMount(() => {
-		finish = window.innerWidth * .98;
-	});
 
-
-	const handlePressHoldStart = () => {
+	const startPressHoldFinishRelease = () => {
 		cancelAnimationFrame(loopingDecrementId);
+		measureDurationOfPressHold1of2()
 		loopingIncrement();
-	};
+	}
 
+	const measureDurationOfPressHold1of2 = () => {
+		performance.clearMarks('01PhStart', '02PhEndIntStart'); //clear any previous markers
+		performance.mark('01PhStart'); //mark the start of the PressHold
+		// --- > Comment in to print out
+		let firstMark = performance.getEntriesByName('01PhStart', 'mark');
+		console.log('first mark = ',firstMark);
+	}
 
-	const handlePressHoldRelease = () => {
+	const measureDurationOfPressHold2of2 = () => {
+		performance.mark('02PhEndIntStart'); // mark the end of the PressHold & start of Interval
+		performance.measure('pressing', '01PhStart', '02PhEndIntStart'); //calculate the PressHold duration
+		markPressHold = performance.getEntriesByName('pressing', 'measure'); //returns an array value
+		console.log(markPressHold)
+	}
+
+	const startReleaseFinishPressHold = () => {
 		cancelAnimationFrame(loopingIncrementId);
+		measureDurationOfPressHold2of2()
 		loopingDecrement();
 	};
 
 
 	const loopingIncrement = () => {
-		counter += 1;
-		console.log(counter)
+		size += 1;
+
 		loopingIncrementId = requestAnimationFrame(loopingIncrement);
 	};
 
 
 	const loopingDecrement = () => {
-		counter -= 1;
-		console.log(counter)
+		size -= 1;
 		loopingDecrementId = requestAnimationFrame(loopingDecrement);
+		if (size <= 1) { cancelAnimationFrame(loopingDecrementId) }
 	};
 
 </script>
 
 
 <div>
-<PressHoldButton on:buttonUp={heardButtonIsUp} on:buttonDown={heardButtonIsDown} />
+<PressHoldButton on:buttonUp={startReleaseFinishPressHold} on:buttonDown={startPressHoldFinishRelease} />
 
 <div class="gradient-bg fill-the-view">
 
