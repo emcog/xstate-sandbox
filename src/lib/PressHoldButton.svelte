@@ -6,41 +6,47 @@
 
 	let buttonDown = false;
 
-	const handleMouseDown = () => {
-		buttonDown = true;
-		dispatch('buttonStatus', {
-				buttonDown,
-				someOtherText: "Foo",
-				aMethod:  function(){
-					console.log('Foo')
-				},
-				aNMethod:  function(){
-					down = false;
-				}
-			}
-		)
-	}
+	// const handleButtonDown = () => {
+	// 	buttonDown = true;
+	// 	dispatch('buttonStatus', {
+	// 			buttonDown,
+	// 			someOtherText: "Foo",
+	// 			aMethod:  function(){
+	// 				console.log('Foo')
+	// 			},
+	// 			aNMethod:  function(){
+	// 				down = false;
+	// 			}
+	// 		}
+	// 	)
+	// }
 
 
-
-	const handleMouseUp = () => {
+	const handleButtonUp = () => {
 		buttonDown = false;
-		dispatch('buttonStatus', {
-			buttonDown,
-			someOtherText: "Bar",
-			aMethod:  function(){
-				console.log('bar')
-				},
-				aNMethod:  function(){
-				down = true;
+		dispatch('buttonUp', {
+			// triggerButtonUp: function(){
+			// 		console.log('button up')
+			buttonDown
 				}
-			}
 		)
 	}
+
+
+	const handleButtonDown = () => {
+		buttonDown = true;
+		dispatch('buttonDown', {
+			// triggerButtonUp: function(){
+			// 		console.log('button up')
+			buttonDown
+				}
+		)
+	}
+
 
 </script>
 
-	<button on:mousedown={handleMouseDown} on:mouseup={handleMouseUp	}>
+	<button on:mousedown={handleButtonDown} on:mouseup={handleButtonUp}>
 		Button: {buttonDown}
 	</button>
 
