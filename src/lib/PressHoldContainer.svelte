@@ -2,21 +2,18 @@
 
 	import PressHoldButton from './PressHoldButton.svelte'
 
-
-
 	const heardButtonIsDown  = () => { pressHoldStartAndReleaseEnd() }
-
 	const heardButtonIsUp = () => { pressHoldEndAndReleaseStart() }
-
-
 
 
 	const pressHoldStartAndReleaseEnd = () => {
 		console.log("press hold has Started")
+		handlePressHoldStart()
 	}
 
 	const pressHoldEndAndReleaseStart = () => {
 		console.log("press Hold End And Release Start")
+		handlePressHoldRelease()
 	}
 
 
@@ -53,6 +50,9 @@
 	let elapsedTimeDown;
 
 
+	let counter = 0;
+
+
 	// ---> Functions
 	// onMount(() => {finish = window.innerWidth*.9;})
 	onMount(() => {
@@ -60,97 +60,33 @@
 	});
 
 
-	const handlePressHoldStart = (e) => {
-		e.preventDefault();
-
-		// Reset the timer for countDownUsingTime()
-		elapsedTimeDown = 0;
-		// Cancel the ease down function
+	const handlePressHoldStart = () => {
 		cancelAnimationFrame(loopingDecrementId);
-		// Measure duration of PressHold & Interval
-		performance.clearMarks('01PhStart', '02PhEndIntStart'); //clear any previous markers
-		performance.mark('01PhStart'); //mark the start of the PressHold
-		let firstMark = performance.getEntriesByName('01PhStart', 'mark');
-		// console.log('first mark = ',firstMark);
-		// Run the looping function
 		loopingIncrement();
 	};
 
 
-	//TODO initialise measurePH on load of document, i.e outside of a function & inside global scope
 	const handlePressHoldRelease = () => {
-
-		// Reset the count up timer
-		elapsedTimeUp = 0;
-		// Stop looping function;
 		cancelAnimationFrame(loopingIncrementId);
-		performance.mark('02PhEndIntStart'); // mark the end of the PressHold & start of Interval
-		performance.measure('pressing', '01PhStart', '02PhEndIntStart'); //calculate the PressHold duration
-		markPressHold = performance.getEntriesByName('pressing', 'measure'); //returns an array value
-		// Define press hold by previous press hold duration, if there is no previous, then define by the initialisation value
-		// if (markPressHold.length < 2) { lastPhDuration = initialiseBreath; } else { lastPhDuration = markPressHold.pop().duration; }
-		if (markPressHold.length < 100) {
-			lastPhDuration = initialiseBreath;
-		} else {
-			lastPhDuration = markPressHold.pop().duration;
-		}
-		// Push the last press hold duration to buffer
-		pHoldCount4.push(lastPhDuration);
-		// Run notHolding loop
 		loopingDecrement();
 	};
 
 
 	const loopingIncrement = () => {
-		//breathe in – extend the out-breath by making the count up relatively faster on the in-breath
-		// elpasedTimeUp += 1 / fps (60) is a rough counter for a second
-		elapsedTimeUp += 1.75 / fps; //pass to pHoldCount4
-		//triggered on release: stop this loop
+		counter += 1;
+		console.log(counter)
 		loopingIncrementId = requestAnimationFrame(loopingIncrement);
-		// elapsedTimeUp * 1000, returns a value which equates to miliseconds, if not true miliseconds
-		size = easing.easeInOutSine(elapsedTimeUp * 1000 / pHoldCount4.avg() || initialiseBreath, elapsedTimeUp * 1000, sizeOnPress || 0, finish, pHoldCount4.avg() || initialiseBreath);
-		//store size to pass to loopingDecrement
-		sizeOnRelease = size;
-		//if the size value is greater than available screen space, stop the animation but keep the counter running
-		if (size >= finish) {
-			size = finish;
-		}
-		// represent the changes in the GUI
-		changeSize();
-		// onBoardingControlFlow();
 	};
 
 
 	const loopingDecrement = () => {
-		elapsedTimeDown += .9 / fps;
-		//enable this function to be canceled on release
+		counter -= 1;
+		console.log(counter)
 		loopingDecrementId = requestAnimationFrame(loopingDecrement);
-		//below works because it is a positive difference ie. start to sizeOnRelease, therefore subtract the existing positive from the incrementally increasing positive to shrink the size
-		size = sizeOnRelease - easing.easeOutSine(elapsedTimeDown * 1000 / lastPhDuration, elapsedTimeDown * 1000, start, sizeOnRelease, lastPhDuration);
-		//create a value to pass easeUpUsingTime()
-		sizeOnPress = size;
-		//  stop this loop if size gets to 1
-		if (size <= 1) {
-			cancelAnimationFrame(loopingDecrementId);
-		}
-		// represent the changes in the GUI
-		changeSize();
-		// onBoardingControlFlow();
 	};
 
-
-	function changeSize() {
-		let driver = size;
-		const suffix = 'px';
-		document.documentElement.style.setProperty(`--size`, driver + suffix);
-	}
-
-
-
-
-
-
 </script>
+
 
 <div>
 <PressHoldButton on:buttonUp={heardButtonIsUp} on:buttonDown={heardButtonIsDown} />
@@ -167,12 +103,12 @@
 		<PhabTextDisplay />
 
 
-		<button id="press-hold-button"
-						on:mousedown={handlePressHoldStart}
-						on:touchstart={handlePressHoldStart}
-						on:mouseup={handlePressHoldRelease}
-						on:touchend={handlePressHoldRelease}>
-		</button>
+<!--		<button id="press-hold-button"-->
+<!--						on:mousedown={handlePressHoldStart}-->
+<!--						on:touchstart={handlePressHoldStart}-->
+<!--						on:mouseup={handlePressHoldRelease}-->
+<!--						on:touchend={handlePressHoldRelease}>-->
+<!--		</button>-->
 
 		<button class="">Hide text</button>
 
@@ -206,63 +142,6 @@
       }
 
 
-      /*.onboarding-wrapper {*/
-      /*    grid-column: 2/3;*/
-      /*    grid-row: 2/3;*/
-      /*}*/
-
-
-      #press-hold-button {
-          grid-column: 2/3;
-          grid-row: 4/5;
-          justify-self: center;
-          align-self: end;
-
-          border-radius: 100%;
-          border: solid 4px rgba(255, 255, 255, 1);
-
-          width: 53px;
-          height: 53px;
-          background-color: rgba(0, 0, 0, 0.1);
-
-          box-shadow: 0 0 3px 2px rgba(88, 102, 114, 0.5);
-
-          -webkit-animation-name: fade-in-out;
-          animation-name: fade-in-out;
-          -webkit-animation-duration: 5s;
-          animation-duration: 5s;
-          -webkit-animation-timing-function: cubic-bezier(.65, .05, .36, 1);
-          animation-timing-function: cubic-bezier(.65, .05, .36, 1);
-          -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
-          -webkit-animation-direction: alternate;
-          animation-direction: alternate;
-      }
-
-
-      #press-hold-button:hover { cursor: pointer; }
-
-
-      @-webkit-keyframes fade-in-out {
-          0%, to { border-color: rgba(255, 255, 255, 1);
-          }
-          50% {
-              /*background-color: #fff;*/
-              border-color: rgba(255, 255, 255, 0.5);
-          }
-      }
-
-      @keyframes fade-in-out {
-          0%, to {
-              border-color: rgba(255, 255, 255, 1);
-          }
-          50% {
-              border-color: rgba(255, 255, 255, 0);
-          }
-      }
-
-
-
       .gradient-bg{ background-image: linear-gradient(to bottom, #7de3a9, #5fc189 21%, #1b442d 95%); }
 
       #signifier__circle-outline {
@@ -282,28 +161,6 @@
       .fill-the-view {
           width: 100vw;
           height: 100vh;
-      }
-
-
-      /*    onboarding*/
-
-      .on-boarding-wrapper {
-          grid-column: 2/3;
-          grid-row: 2/3;
-      }
-
-      .above-button {
-          grid-column: 2/3;
-      }
-
-      .hidden { display: none; }
-
-      .fade-in-out{
-          /*    animation effect*/
-      }
-
-      .z10 {
-          z-index: 10;
       }
 
 	</style>
