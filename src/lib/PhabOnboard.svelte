@@ -227,3 +227,5 @@
 		}
 	}
 </script>
+<button class="">Hide text</button>
+<style></style>
