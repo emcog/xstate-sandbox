@@ -22,7 +22,6 @@
 
 
     #signifier__circle-outline {
-
         justify-self: center;
         align-self: center;
         grid-column: 1/-1;
