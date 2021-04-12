@@ -1,7 +1,7 @@
 <script>
-	let text = "text to display"
+	import { onBoardPhab } from '$lib/stores/onboardPhab.js'
 </script>
-<span>{text}</span>
+<span>{ $onBoardPhab.progress.pressAndHoldTheButton.instruction }</span>
 <style>
 	span {
       z-index: 10;
