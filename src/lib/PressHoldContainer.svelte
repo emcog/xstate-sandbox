@@ -5,7 +5,7 @@
 	import PressHoldButton from './PressHoldButton.svelte'
 	import PhabTextDisplay from '$lib/PhabTextDisplay.svelte'
 	import ExpandingCollapsingCircle from '$lib/ExpandingCollapsingCircle.svelte'
-	import PhabOnboard from '$lib/./PhabOnboard.svelte'
+	import OnBoardPhab from '$lib/OnBoardPhab.svelte'
 
 	// ---> JS components
 	import CBuffer from '$lib/phab/js/modules/cbuffer.js';
@@ -116,9 +116,7 @@
 	<ExpandingCollapsingCircle />
 	<PhabTextDisplay />
 	<PressHoldButton on:buttonUp={startReleaseFinishPressHold} on:buttonDown={startPressHoldFinishRelease} />
-	<button class="">Old</button>
-	<PhabOnboard />
-
+	<OnBoardPhab />
 </div>
 
 
@@ -129,18 +127,5 @@
       grid-template-rows: 2.625fr 375px repeat(3, 1fr);
       width: 100%;
       height: 100%;
-	}
-
-	button {
-      grid-column: 2/3;
-      grid-row: 5/6;
-			justify-self: center;
-      margin: 50px 0;
-			max-width: 100px;
-			text-decoration: underline;
-			background: none;
-			padding: 0;
-			border: none;
-			color: white;
 	}
 </style>

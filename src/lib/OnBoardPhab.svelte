@@ -10,119 +10,6 @@
 	let pointerIsDown = false;
 
 
-	// please refer to flowchart diagram onBoardLogic.drawio contained in planning directory
-	// let onBoardPhab = {
-	// 	skipped: false,
-	// 	progress: {
-	// 		passedAll: false,
-	//
-	// 		pressAndHoldTheButton: {
-	// 			requiredMinDuration: 50,
-	// 			passed: false,
-	// 			get interrupted() {
-	// 				onBoardPhab.progress.pressAndHoldTheButton.instruction;
-	// 			},
-	// 			node: undefined,
-	// 			instruction: onBoardPhab01
-	//
-	// 		},
-	// 		keepingGoing: {
-	// 			requiredMinDuration: 100,
-	// 			passed: false,
-	// 			get interrupted() {
-	// 				onBoardPhab.progressInterrupted.tryPressingLonger.instruction;
-	// 			},
-	// 			node: undefined,
-	// 			instruction: onBoardPhab02
-	// 		},
-	// 		thatIsGreat: {
-	// 			requiredMinDuration: 200,
-	// 			passed: false,
-	// 			get interrupted() {
-	// 				tryPressingLonger.instruction;
-	// 			},
-	// 			node: undefined,
-	// 			instruction: onBoardPhab03
-	// 		},
-	// 		nowReleaseAndWait: {
-	// 			requiredMinDuration: 400,
-	// 			passed: false,
-	// 			get interrupted() {
-	// 				dontPressJustYet.instruction;
-	// 			},
-	// 			node: undefined,
-	// 			instruction: onBoardPhab04
-	// 		},
-	// 		waitALittleLonger: {
-	// 			requiredDuration: 200,
-	// 			passed: false,
-	// 			get interrupted() {
-	// 				tryPressingLonger.instruction;
-	// 			},
-	// 			node: undefined,
-	// 			instruction: onBoardPhab05
-	// 		},
-	// 		now: {
-	// 			requiredDuration: 40,
-	// 			passed: false,
-	// 			node: undefined,
-	// 			instruction: onBoardPhab06
-	// 		},
-	// 		pressHoldAndBreathe: {
-	// 			requiredDuration: 10,
-	// 			passed: false,
-	// 			get interrupted() {
-	// 				tryPressingLonger.instruction;
-	// 			},
-	// 			node: undefined,
-	// 			instruction: onBoardPhab07
-	// 		}
-	// 	},
-	// 	progressInterrupted: {
-	// 		tryPressingLonger: {
-	// 			passed: false,
-	// 			get progress() {
-	// 				keepingGoing.instruction;
-	// 			},
-	// 			node: undefined,
-	// 			instruction: tpl
-	// 		},
-	// 		dontPressJustYet: {
-	// 			requiredDuration: 700,
-	// 			passed: false,
-	// 			get progress() {
-	// 				waitALittleLonger.instruction;
-	// 			},
-	// 			get interrupted() {
-	// 				releaseTheButton.instruction;
-	// 			},
-	// 			node: undefined,
-	// 			instruction: dpjy
-	// 		},
-	// 		releaseTheButton: {
-	// 			requiredDuration: 700,
-	// 			passed: false,
-	// 			get progress() {
-	// 				waitALittleLonger.instruction;
-	// 			},
-	// 			get interrupted() {
-	// 				letsStartAgain;
-	// 			},
-	// 			node: undefined,
-	// 			instruction: rtb
-	// 		},
-	// 		letsStartAgain: {
-	// 			requiredDuration: 700,
-	// 			passed: false,
-	// 			get progress() {
-	// 				pressAndHoldTheButton.instruction;
-	// 			},
-	// 			node: undefined,
-	// 			instruction: lsa
-	// 		}
-	// 	}
-	// };
-	//
 
 	//destructure onBoardPhab
 	// const {
@@ -231,4 +118,17 @@
 	}
 </script>
 <button on:click={skipOnBoarding} class="">Hide text</button>
-<style></style>
+<style>
+    button {
+        grid-column: 2/3;
+        grid-row: 5/6;
+        justify-self: center;
+        margin: 50px 0;
+        max-width: 100px;
+        text-decoration: underline;
+        background: none;
+        padding: 0;
+        border: none;
+        color: white;
+    }
+</style>
