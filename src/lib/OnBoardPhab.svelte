@@ -11,7 +11,7 @@
 
 
 
-	//destructure onBoardPhab
+	// destructure onBoardPhab
 	// const {
 	// 	pressAndHoldTheButton,
 	// 	keepingGoing,
@@ -29,10 +29,28 @@
 	// 	letsStartAgain
 	// } = onBoardPhab.progressInterrupted;
 
+	const {
+		pressAndHoldTheButton,
+		keepingGoing,
+		thatIsGreat,
+		nowReleaseAndWait,
+		waitALittleLonger,
+		now,
+		pressHoldAndBreathe
+	} = $onBoardPhab.progress;
+
+	const {
+		tryPressingLonger,
+		dontPressJustYet,
+		releaseTheButton,
+		letsStartAgain
+	} = $onBoardPhab.progressInterrupted;
+
 
 	function skipOnBoarding() {
 		onBoardPhab.update.skipped = true;
-		console.log (onBoardPhab.skipped = true);
+		console.log ($onBoardPhab.skipped = true);
+		console.log('pressAndHoldTheButtion', pressAndHoldTheButton)
 	}
 
 
