@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const onBoardPhab = writable({
+export let onBoardPhab = writable({
 	skipped: false,
 	passedAll: false,
 	progress: {

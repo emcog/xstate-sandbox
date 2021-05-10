@@ -10,25 +10,6 @@
 	let pointerIsDown = false;
 
 
-
-	// destructure onBoardPhab
-	// const {
-	// 	pressAndHoldTheButton,
-	// 	keepingGoing,
-	// 	thatIsGreat,
-	// 	nowReleaseAndWait,
-	// 	waitALittleLonger,
-	// 	now,
-	// 	pressHoldAndBreathe
-	// } = onBoardPhab.progress;
-	//
-	// const {
-	// 	tryPressingLonger,
-	// 	dontPressJustYet,
-	// 	releaseTheButton,
-	// 	letsStartAgain
-	// } = onBoardPhab.progressInterrupted;
-
 	const {
 		pressAndHoldTheButton,
 		keepingGoing,
@@ -48,9 +29,11 @@
 
 
 	function skipOnBoarding() {
-		onBoardPhab.update.skipped = true;
-		console.log ($onBoardPhab.skipped = true);
-		console.log('pressAndHoldTheButtion', pressAndHoldTheButton)
+		// onBoardPhab.update.skipped = true;
+		console.log($onBoardPhab.skipped.set);
+		$onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration.set(60);
+		console.log('onboardPhab', $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration);
+		console.log('pressAndHoldTheButton', pressAndHoldTheButton);
 	}
 
 
