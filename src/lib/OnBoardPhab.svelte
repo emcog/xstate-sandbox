@@ -36,7 +36,47 @@
 		console.log('pressAndHoldTheButton', pressAndHoldTheButton);
 	}
 
+	oBP = {
+		prog:[
+			{
+				name: 'pressAndHoldTheButton',
+				requiredMinDuration: 50,
+				passed: false,
+				get interrupted() {
+					onBoardPhab.progress.pressAndHoldTheButton.instruction;
+				},
+				node: undefined,
+				instruction: 'Press and hold the button'
+			},
+			{
+				name: 'next step',
+				requiredMinDuration: 100,
+				passed: false,
+				get interrupted() {
+					onBoardPhab.progress.pressAndHoldTheButton.instruction;
+				},
+				node: undefined,
+				instruction: 'Press and hold the button'
+			}
 
+		]
+	}
+
+function onBoardingControlFlow() {
+	for (let i = 0; i < onBoardPhab.progress.length; i++) {
+		if (i.passed === true) {
+			'skip'
+		} else if (i.passed === false && counter <= i.requiredMinDuration) {
+			'i.instruction'
+			if (counter === i.requiredMinDuration) {
+				i.passed = true
+			}
+		}
+	}
+}
+
+	
+	/*
 	function onBoardingControlFlow() {
 
 		// check skipped or peviously completed
@@ -117,6 +157,7 @@
 			}
 		}
 	}
+	*/
 </script>
 <button on:click={skipOnBoarding} class="">Hide text</button>
 <style>
