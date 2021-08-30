@@ -40,3 +40,13 @@ By default, `npm run build` will generate a Node app that you can run with `node
 - ...more soon
 
 [See the adapter documentation for more detail](https://kit.svelte.dev/docs#adapters)
+
+### Project specfic
+#### Notes
+Remember to use pnpm
+
+
+### Resources
+- [Jest video at Svelte Summit](https://www.youtube.com/watch?v=fnr9XWvjJHw&t=4427s)
+    - [Git repo](https://github.com/dmitryvinn/jest-svelte-testing-talk)
+

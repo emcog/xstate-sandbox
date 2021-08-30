@@ -36,31 +36,31 @@
 		console.log('pressAndHoldTheButton', pressAndHoldTheButton);
 	}
 
-	let oBP = {
-		prog:[
-			{
-				name: 'pressAndHoldTheButton',
-				requiredMinDuration: 50,
-				passed: false,
-				get interrupted() {
-					onBoardPhab.progress.pressAndHoldTheButton.instruction;
-				},
-				node: undefined,
-				instruction: 'Press and hold the button'
-			},
-			{
-				name: 'next step',
-				requiredMinDuration: 100,
-				passed: false,
-				get interrupted() {
-					onBoardPhab.progress.pressAndHoldTheButton.instruction;
-				},
-				node: undefined,
-				instruction: 'Press and hold the button'
-			}
-
-		]
-	}
+	// const oBP = {
+	// 	prog:[
+	// 		{
+	// 			name: 'pressAndHoldTheButton',
+	// 			requiredMinDuration: 50,
+	// 			passed: false,
+	// 			get interrupted() {
+	// 				onBoardPhab.progress.pressAndHoldTheButton.instruction;
+	// 			},
+	// 			node: undefined,
+	// 			instruction: 'Press and hold the button'
+	// 		},
+	// 		{
+	// 			name: 'next step',
+	// 			requiredMinDuration: 100,
+	// 			passed: false,
+	// 			get interrupted() {
+	// 				onBoardPhab.progress.pressAndHoldTheButton.instruction;
+	// 			},
+	// 			node: undefined,
+	// 			instruction: 'Press and hold the button'
+	// 		}
+	//
+	// 	]
+	// }
 
 function onBoardingControlFlow() {
 	for (let i = 0; i < onBoardPhab.progress.length; i++) {
@@ -159,8 +159,8 @@ function onBoardingControlFlow() {
 	}
 	*/
 </script>
-<span data-testid="test-test">Onboarding instruction</span>
-<button on:click={skipOnBoarding} class="">Hide text</button>
+<span data-testid="test-test">This is a test test</span>
+<button on:click={skipOnBoarding} data-testid='skip-button' class="">Hide text</button>
 <style>
     button {
         grid-column: 2/3;
