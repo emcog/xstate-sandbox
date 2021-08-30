@@ -36,7 +36,7 @@
 		console.log('pressAndHoldTheButton', pressAndHoldTheButton);
 	}
 
-	oBP = {
+	let oBP = {
 		prog:[
 			{
 				name: 'pressAndHoldTheButton',
@@ -159,6 +159,7 @@ function onBoardingControlFlow() {
 	}
 	*/
 </script>
+<span data-testid="test-test">Onboarding instruction</span>
 <button on:click={skipOnBoarding} class="">Hide text</button>
 <style>
     button {

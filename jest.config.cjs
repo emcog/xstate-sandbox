@@ -10,5 +10,10 @@ module.exports = {
 			'<rootDir>/.svelte-kit/dev/runtime/app$1',
 			'<rootDir>/.svelte-kit/build/runtime/app$1'
 		]
-	}
+	},
+	testPathIgnorePatterns: ["node_modules"],
+	bail: false,
+	verbose: true,
+	transformIgnorePatterns: ["node_modules"],
+	setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"]
 };
