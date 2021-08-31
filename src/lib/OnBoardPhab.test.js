@@ -7,6 +7,6 @@ describe("On board instructions", () => {
  it("Should display the correct instruction", () => {
   const { container } = render(OnBoardPhab);
 
-  expect(container).toHaveTextContent("This is a test test");
+  expect(container).toHaveTextContent("Hide text");
   });
  });

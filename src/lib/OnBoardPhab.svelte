@@ -52,7 +52,6 @@ function onBoardingControlFlow() {
 
 
 </script>
-<span data-testid="test-test">This is a test test</span>
 <button on:click={skipOnBoarding} data-testid='skip-button' class="">Hide text</button>
 <style>
     button {
@@ -66,5 +65,6 @@ function onBoardingControlFlow() {
         padding: 0;
         border: none;
         color: white;
+				background: orange;
     }
 </style>
