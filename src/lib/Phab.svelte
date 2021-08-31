@@ -365,8 +365,6 @@
 </script>
 
 
-
-
 <div class="gradient-bg fill-the-view">
 
 	<div class="feedback-onboarding-wrapper">
