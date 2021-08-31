@@ -21,6 +21,7 @@ afterAll(() => {
 
 describe("Phab button", () => {
 	it("should be accessable with keyboard", async () => {
+		await page.setViewport({ width: 1920, height: 1080 })
 		await page.goto(baseUrl);
 		await page.waitForSelector('#press-hold-button');
 		await page.focus('button[id=press-hold-button]')
