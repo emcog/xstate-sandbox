@@ -20,16 +20,15 @@ afterAll(() => {
 })
 
 describe("Phab button", () => {
-	it("should be accessable with keyboard", async () => {
-		await page.setViewport({ width: 1920, height: 1080 })
+	it("should have onboarding instructions which update during press-hold", async () => {
+		await page.setViewport({ width: 729, height: 826 })
 		await page.goto(baseUrl);
 		await page.waitForSelector('#press-hold-button');
-		await page.focus('button[id=press-hold-button]')
-		await page.keyboard.onkeydown('Space', delay: 200);
-		await page.keyboard.onkeydown('Space', delay: 300);
+
+		await page.mouse.move(372, 110)
 
 		// insert or assertion test here e.g.
 		// expect(allTodoItemsText).contain("Run Test");
-
+		/* size of ballon changes or text updates on the test */
 
 		}, 100000)});
