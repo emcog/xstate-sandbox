@@ -85,25 +85,31 @@
 
 
 	const loopingIncrement = () => {
-		countUp += 1.75 / fps;
-		size = easing.easeInOutSine(countUp * 1000 / pHoldCount4.avg() || initialiseBreath, countUp * 1000, sizeOnPress || 0, finish, pHoldCount4.avg() || initialiseBreath);
+		size += 1.15;
+		console.log(size)
+
+		// countUp += 1.75 / fps;
+		// size = easing.easeInOutSine(countUp * 1000 / pHoldCount4.avg() || initialiseBreath, countUp * 1000, sizeOnPress || 0, finish, pHoldCount4.avg() || initialiseBreath);
 		loopingIncrementId = requestAnimationFrame(loopingIncrement);
 		//store size to pass to loopingDecrement
-		sizeOnRelease = size;
-		console.log( 'countUp', countUp, 'size on press', sizeOnPress, 'finish', finish, 'phC4 avg', pHoldCount4.avg(), 'initalB', initialiseBreath)
+		// sizeOnRelease = size;
+		// console.log( 'countUp', countUp, 'size on press', sizeOnPress, 'finish', finish, 'phC4 avg', pHoldCount4.avg(), 'initalB', initialiseBreath)
 		changeSize();
 	};
 
 
 	const loopingDecrement = () => {
-		countDown += .9 / fps;
+		size -= .9;
+
+		// countDown += .9 / fps;
 		loopingDecrementId = requestAnimationFrame(loopingDecrement);
-		size = sizeOnRelease - easing.easeOutSine(countDown * 1000 / lastPhDuration, countDown * 1000, start, sizeOnRelease, lastPhDuration);
+		// size = sizeOnRelease - easing.easeOutSine(countUp * 1000 / lastPhDuration, countUp * 1000, start, sizeOnRelease, lastPhDuration);
+		// size = sizeOnRelease - easing.easeOutSine(countDown * 1000 / lastPhDuration, countDown * 1000, start, sizeOnRelease, lastPhDuration);
 		if (size <= 1) { cancelAnimationFrame(loopingDecrementId) }
 		//store size to pass to loopingDecrement
-		sizeOnPress = size;
+		// sizeOnPress = size;
 		// console.log(size)
-		console.log('lastPH', lastPhDuration, 'countDown', countDown, 'start', start, 'sizeOnRelease', sizeOnRelease)
+		console.log('lastPH', lastPhDuration, 'countDown', countDown, 'countUp', countUp, 'start', start, 'sizeOnRelease', sizeOnRelease)
 		changeSize();
 	}
 
