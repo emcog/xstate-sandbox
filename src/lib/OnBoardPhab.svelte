@@ -52,7 +52,7 @@ function onBoardingControlFlow() {
 
 
 </script>
-<button on:click={skipOnBoarding} data-testid='skip-button' class="">Hide text</button>
+<button on:click={skipOnBoarding} data-testid='skip-onboarding' >Hide text</button>
 <style>
     button {
         grid-column: 2/3;

@@ -24,12 +24,6 @@
 
 </script>
 
-<!--add pulsing styling to button-->
-<!--	<button on:mousedown={handleButtonDown} on:mouseup={handleButtonUp}>-->
-<!--		Button: {buttonDown}-->
-<!--	</button>-->
-
-
 <button id="press-hold-button"
 				on:mousedown={handleButtonDown}
 				on:touchstart={handleButtonDown}
