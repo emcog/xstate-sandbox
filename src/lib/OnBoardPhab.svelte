@@ -6,9 +6,7 @@
 	let onBoarding01;
 	let onBoarding02;
 
-
 	let pointerIsDown = false;
-
 
 	const {
 		pressAndHoldTheButton,
@@ -30,10 +28,13 @@
 
 	function skipOnBoarding() {
 		// onBoardPhab.update.skipped = true;
-		console.log($onBoardPhab.skipped.set);
-		$onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration.set(60);
-		console.log('onboardPhab', $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration);
-		console.log('pressAndHoldTheButton', pressAndHoldTheButton);
+		$onBoardPhab.skipped = true;
+
+		// $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration.set(60);
+		console.log('skipped', $onBoardPhab)
+		// console.log('onboardPhab', $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration);
+		// console.log('pressAndHoldTheButton', pressAndHoldTheButton);
+	//	TODO dispatch event, button clicked – ensure text hides
 	}
 
 
@@ -60,11 +61,11 @@ function onBoardingControlFlow() {
         justify-self: center;
         margin: 50px 0;
         max-width: 100px;
-        text-decoration: underline;
-        background: none;
-        padding: 0;
-        border: none;
-        color: white;
-				background: orange;
+        /*text-decoration: underline;*/
+        /*background: none;*/
+        /*padding: 0;*/
+        /*border: none;*/
+        /*color: white;*/
+				/*background: orange;*/
     }
 </style>

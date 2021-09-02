@@ -100,10 +100,8 @@
 
 	const loopingDecrement = () => {
 		size -= .9;
-
 		// countDown += .9 / fps;
 		loopingDecrementId = requestAnimationFrame(loopingDecrement);
-		// size = sizeOnRelease - easing.easeOutSine(countUp * 1000 / lastPhDuration, countUp * 1000, start, sizeOnRelease, lastPhDuration);
 		// size = sizeOnRelease - easing.easeOutSine(countDown * 1000 / lastPhDuration, countDown * 1000, start, sizeOnRelease, lastPhDuration);
 		if (size <= 1) { cancelAnimationFrame(loopingDecrementId) }
 		//store size to pass to loopingDecrement

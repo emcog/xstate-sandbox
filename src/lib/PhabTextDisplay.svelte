@@ -20,7 +20,7 @@
 	} = $onBoardPhab.progressInterrupted;
 
 </script>
-{#if !onBoardPhab.skipped }<span>{ pressAndHoldTheButton.instruction }</span>{/if}
+{#if !$onBoardPhab.skipped }<span>{ pressAndHoldTheButton.instruction }</span>{/if}
 <style>
 	span {
       z-index: 10;
