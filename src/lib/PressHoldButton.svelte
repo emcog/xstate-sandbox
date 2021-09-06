@@ -1,7 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
-	import { phabButtonIsDownStore } from './stores/PressHoldButton.js';
 	import { onBoardingControlFlow} from './OnBoardPhab.svelte'
 
 
@@ -9,7 +8,6 @@
 
 	const handleButtonUp = () => {
 		phabButtonIsDown = false;
-		$phabButtonIsDownStore = false;
 		//why is this wording so confusing?
 		dispatch('buttonUp', {
 			// phabButtonIsDown is false
@@ -24,8 +22,6 @@
 		phabButtonIsDown = true;
 		console.log('button down');
 		onBoardingControlFlow();
-		// changeColor();
-		$phabButtonIsDownStore = true;
 		dispatch('phabButtonIsDown', {
 			// phabButtonIsDown is true
 			phabButtonIsDown
