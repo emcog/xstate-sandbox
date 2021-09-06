@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 	import { onBoardingControlFlow} from './OnBoardPhab.svelte'
-	import { onBoardPhab } from './stores/onboardPhab';
+	import { phabOnboardingStateStore } from './stores/onboardPhab';
 
 
 	let phabButtonIsDown = false;
@@ -22,7 +22,7 @@
 		// const progressLength = Object.keys($onBoardPhab.progress).length
 		// console.log(progressLength);
 
-		console.log('progress length',$onBoardPhab.progress.length)
+		console.log('progress length',$phabOnboardingStateStore.progress.length)
 
 		// likely need to refactor the store to be array.
 		// for (let i = 0; i < progressLength; i++) {
