@@ -3,70 +3,71 @@ import { writable } from 'svelte/store';
 export const onBoardPhab = writable({
 	skipped: false,
 	passedAll: false,
-	progress: {
+	progress:
 		//todo remove passed all and refactor to become obj/key/array of objects
 		// passedAll: false,
-		pressAndHoldTheButton: {
-			requiredMinDuration: 50,
-			passed: false,
-			get interrupted() {
-				onBoardPhab.progress.pressAndHoldTheButton.instruction;
+		[
+			{
+				instruction: 'Press and hold the button',
+				requiredMinDuration: 50,
+				passed: false,
+				get interrupted() {
+					onBoardPhab.progress.pressAndHoldTheButton.instruction;
+				},
+				node: undefined
 			},
-			node: undefined,
-			instruction: 'Press and hold the button'
-
-		},
-		keepingGoing: {
-			requiredMinDuration: 100,
-			passed: false,
-			get interrupted() {
-				onBoardPhab.progressInterrupted.tryPressingLonger.instruction;
+			{
+				instruction: "Keep going",
+				requiredMinDuration: 100,
+				passed: false,
+				get interrupted() {
+					onBoardPhab.progressInterrupted.tryPressingLonger.instruction;
+				},
+				node: undefined
 			},
-			node: undefined,
-			instruction: "Keep going"
+			{
+				instruction: "That is great",
+				requiredMinDuration: 200,
+				passed: false,
+				get interrupted() {
+					tryPressingLonger.instruction;
+				},
+				node: undefined
 		},
-		thatIsGreat: {
-			requiredMinDuration: 200,
-			passed: false,
-			get interrupted() {
-				tryPressingLonger.instruction;
-			},
-			node: undefined,
-			instruction: "That is great"
-		},
-		nowReleaseAndWait: {
+		{
+			instruction: "Now release and wait",
 			requiredMinDuration: 400,
 			passed: false,
 			get interrupted() {
 				dontPressJustYet.instruction;
 			},
-			node: undefined,
-			instruction: "Now release and wait"
+			node: undefined
 		},
-		waitALittleLonger: {
+		{
+			instruction: "Wait a little longer",
 			requiredDuration: 200,
 			passed: false,
 			get interrupted() {
 				tryPressingLonger.instruction;
 			},
-			node: undefined,
-			instruction: "Wait a little longer"
+			node: undefined
 		},
-		now: {
+		 {
+			instruction: "Now",
 			requiredDuration: 40,
 			passed: false,
-			node: undefined,
-			instruction: "Now"
+			node: undefined
 		},
-		pressHoldAndBreathe: {
+		{
+			instruction: "Press hold and breathe"
 			requiredDuration: 10,
 			passed: false,
 			get interrupted() {
 				tryPressingLonger.instruction;
 			},
-			node: undefined,
-			instruction: "Press hold and breathe"
+			node: undefined
 		}
+		],
 	},
 	progressInterrupted: {
 		tryPressingLonger: {
