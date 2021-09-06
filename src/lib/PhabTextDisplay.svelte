@@ -2,6 +2,7 @@
 	import { onBoardPhab } from '$lib/stores/onboardPhab.js';
 
 	//destructure onBoardPhab
+	//to do – refactor so that
 	const {
 		pressAndHoldTheButton,
 		keepingGoing,

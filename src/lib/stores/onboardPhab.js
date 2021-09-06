@@ -3,10 +3,7 @@ import { writable } from 'svelte/store';
 export const onBoardPhab = writable({
 	skipped: false,
 	passedAll: false,
-	progress:
-		//todo remove passed all and refactor to become obj/key/array of objects
-		// passedAll: false,
-		[
+	progress: [
 			{
 				instruction: 'Press and hold the button',
 				requiredMinDuration: 50,
@@ -52,14 +49,14 @@ export const onBoardPhab = writable({
 			},
 			node: undefined
 		},
-		 {
+		{
 			instruction: "Now",
 			requiredDuration: 40,
 			passed: false,
 			node: undefined
 		},
 		{
-			instruction: "Press hold and breathe"
+			instruction: "Press hold and breathe",
 			requiredDuration: 10,
 			passed: false,
 			get interrupted() {
@@ -68,7 +65,6 @@ export const onBoardPhab = writable({
 			node: undefined
 		}
 		],
-	},
 	progressInterrupted: {
 		tryPressingLonger: {
 			passed: false,
@@ -113,7 +109,3 @@ export const onBoardPhab = writable({
 		}
 	}
 });
-
-export function controlFlow() {
-	console.log('OnBoardPhab PRog', onBoardPhab.progress)
-}

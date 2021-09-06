@@ -42,7 +42,8 @@
 
 
 	export function onBoardingControlFlow() {
-		console.log('controlFlow')
+		console.log('Delete me')
+
 		// console.log('onBoardPhab', $onBoardPhab.progress.length)
 		// for (let i = 0; i < onBoardPhab.progress.length; i++) {
 		// 	if (i.passed === true) {
