@@ -2,7 +2,8 @@
 	import { onBoardPhab } from '$lib/stores/onboardPhab.js';
 
 	//destructure onBoardPhab
-	//to do – refactor so that
+	//to do – refactor so that this references array positions rather than object keys
+	/*
 	const {
 		pressAndHoldTheButton,
 		keepingGoing,
@@ -20,8 +21,10 @@
 		letsStartAgain
 	} = $onBoardPhab.progressInterrupted;
 
+	 */
+
 </script>
-{#if !$onBoardPhab.skipped }<span>{ pressAndHoldTheButton.instruction }</span>{/if}
+{#if !$onBoardPhab.skipped }<span>{ $onBoardPhab.progress[0].instruction }</span>{/if}
 <style>
 	span {
       z-index: 10;

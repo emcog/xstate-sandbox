@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
 	import { onBoardingControlFlow} from './OnBoardPhab.svelte'
-	import { onBoardPhab, controlFlow } from './stores/onboardPhab';
+	import { onBoardPhab } from './stores/onboardPhab';
 
 
 	let phabButtonIsDown = false;
