@@ -2,6 +2,7 @@
 
 	import { onBoardPhab } from './stores/onboardPhab';
 
+
 	let onBoardingWrapperNode;
 	let onBoarding01;
 	let onBoarding02;
@@ -31,29 +32,35 @@
 		$onBoardPhab.skipped = true;
 
 		// $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration.set(60);
-		console.log('skipped', $onBoardPhab)
+		console.log('skipped', $onBoardPhab);
 		// console.log('onboardPhab', $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration);
 		// console.log('pressAndHoldTheButton', pressAndHoldTheButton);
-	//	TODO dispatch event, button clicked – ensure text hides
 	}
-
-
-function onBoardingControlFlow() {
-	for (let i = 0; i < onBoardPhab.progress.length; i++) {
-		if (i.passed === true) {
-			'skip'
-		} else if (i.passed === false && counter <= i.requiredMinDuration) {
-			'i.instruction'
-			if (counter === i.requiredMinDuration) {
-				i.passed = true
-			}
-		}
-	}
-}
-
 
 </script>
+
+<script context='module'>
+
+
+	export function onBoardingControlFlow() {
+		console.log('controlFlow')
+		// for (let i = 0; i < onBoardPhab.progress.length; i++) {
+		// 	if (i.passed === true) {
+		// 		'skip';
+		// 	} else if (i.passed === false && counter <= i.requiredMinDuration) {
+		// 		'i.instruction';
+		// 		if (counter === i.requiredMinDuration) {
+		// 			i.passed = true;
+		// 		}
+		// 	}
+		// }
+	}
+
+</script>
+
+
 {#if !$onBoardPhab.skipped }<button on:click={skipOnBoarding} data-testid='skip-onboarding' >Hide text</button>{/if}
+
 <style>
     button {
         grid-column: 2/3;

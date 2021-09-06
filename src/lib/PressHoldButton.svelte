@@ -1,35 +1,46 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
+	import { phabButtonIsDownStore } from './stores/PressHoldButton.js';
+	import { onBoardingControlFlow} from './OnBoardPhab.svelte'
 
-	let buttonDown = false;
+
+	let phabButtonIsDown = false;
 
 	const handleButtonUp = () => {
-		buttonDown = false;
+		phabButtonIsDown = false;
+		$phabButtonIsDownStore = false;
+		//why is this wording so confusing?
 		dispatch('buttonUp', {
-			buttonDown
+			// phabButtonIsDown is false
+			phabButtonIsDown
+			// buttonUp
 				}
 		)
 	}
 
 
-	const handleButtonDown = () => {
-		buttonDown = true;
-		dispatch('buttonDown', {
-			buttonDown
+	const handlePhabButtonIsDown = () => {
+		phabButtonIsDown = true;
+		console.log('button down');
+		onBoardingControlFlow();
+		// changeColor();
+		$phabButtonIsDownStore = true;
+		dispatch('phabButtonIsDown', {
+			// phabButtonIsDown is true
+			phabButtonIsDown
 				}
 		)
 	}
-
 
 </script>
 
 <button id="press-hold-button"
-				on:mousedown={handleButtonDown}
-				on:touchstart={handleButtonDown}
+				on:mousedown={handlePhabButtonIsDown}
+				on:touchstart={handlePhabButtonIsDown}
 				on:mouseup={handleButtonUp}
 				on:touchend={handleButtonUp}>
-	{buttonDown}
+				<!--{phabButtonIsDown}-->
 </button>
 
 
@@ -77,7 +88,6 @@
         0%, to { border-color: rgba(255, 255, 255, 1) }
         50% { border-color: rgba(255, 255, 255, 0) }
     }
-
 
 
 </style>

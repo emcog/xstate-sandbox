@@ -7,6 +7,7 @@
 	import ExpandingCollapsingCircle from '$lib/ExpandingCollapsingCircle.svelte'
 	import OnBoardPhab from '$lib/OnBoardPhab.svelte'
 
+
 	// ---> JS components
 	import CBuffer from '$lib/phab/js/modules/cbuffer.js';
 	import { easing } from '$lib/phab/js/modules/easings.js';
@@ -119,7 +120,7 @@
 <div>
 	<ExpandingCollapsingCircle />
 	<PhabTextDisplay />
-	<PressHoldButton on:buttonUp={startReleaseFinishPressHold} on:buttonDown={startPressHoldFinishRelease} />
+	<PressHoldButton on:buttonUp={startReleaseFinishPressHold} on:phabButtonIsDown={startPressHoldFinishRelease} />
 	<OnBoardPhab />
 </div>
 
