@@ -1,10 +1,11 @@
 import { writable } from 'svelte/store';
 
-export let onBoardPhab = writable({
+export const onBoardPhab = writable({
 	skipped: false,
 	passedAll: false,
 	progress: {
-		passedAll: false,
+		//todo remove passed all and refactor to become obj/key/array of objects
+		// passedAll: false,
 		pressAndHoldTheButton: {
 			requiredMinDuration: 50,
 			passed: false,
@@ -111,3 +112,7 @@ export let onBoardPhab = writable({
 		}
 	}
 });
+
+export function controlFlow() {
+	console.log('OnBoardPhab PRog', onBoardPhab.progress)
+}
