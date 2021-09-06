@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const phabOnboardingStateStore = writable({
+export const phabOnboardingStateMachine = writable({
 	skipped: false,
 	passedAll: false,
 	progress: [
@@ -9,7 +9,7 @@ export const phabOnboardingStateStore = writable({
 				requiredMinDuration: 50,
 				passed: false,
 				get interrupted() {
-					phabOnboardingStateStore.progress.pressAndHoldTheButton.instruction;
+					phabOnboardingStateMachine.progress.pressAndHoldTheButton.instruction;
 				},
 				node: undefined
 			},
@@ -18,7 +18,7 @@ export const phabOnboardingStateStore = writable({
 				requiredMinDuration: 100,
 				passed: false,
 				get interrupted() {
-					phabOnboardingStateStore.progressInterrupted.tryPressingLonger.instruction;
+					phabOnboardingStateMachine.progressInterrupted.tryPressingLonger.instruction;
 				},
 				node: undefined
 			},
