@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store';
 
+
 function createStorePhabOnboardingState() {
 	const { subscribe, set, update } = writable({
 		skipped: false,
@@ -109,7 +110,18 @@ function createStorePhabOnboardingState() {
 				instruction: 'lsa'
 			}
 		}
-	})
+	});
+
+
+	return {
+		subscribe
+		//	controlFlow: () =>
+	};
 }
 
+
+
+
+
 export const phabOnboardingState = createStorePhabOnboardingState();
+// export const phabOnboardingState = console.log('banan');

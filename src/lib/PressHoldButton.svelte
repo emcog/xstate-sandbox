@@ -23,7 +23,7 @@
 		// console.log(progressLength);
 
 		// console.log('progress length',$phabOnboardingState.progress.length)
-		console.log('progress length')
+		console.log('phab onboarding state', $phabOnboardingState)
 
 		// likely need to refactor the store to be array.
 		// for (let i = 0; i < progressLength; i++) {

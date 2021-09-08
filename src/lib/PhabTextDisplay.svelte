@@ -1,5 +1,5 @@
 <script>
-	import { phabOnboardingState } from '$lib/stores/storePhabOnboardingState.js';
+	import { phabOnboardingState } from './stores/storePhabOnboardingState.js';
 
 	//destructure onBoardPhab
 	//to do – refactor so that this references array positions rather than object keys
@@ -25,7 +25,7 @@
 
 </script>
 <!--todo replace 0 with conditional logic which displays the first instruction which is not skipped-->
-<!--{#if !$phabOnboardingState.skipped }<span>{ $phabOnboardingState.progress[0].instruction }</span>{/if}-->
+{#if !$phabOnboardingState.skipped }<span>{ $phabOnboardingState.progress[0].instruction }</span>{/if}
 <style>
 	span {
       z-index: 10;
