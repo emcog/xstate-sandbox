@@ -1,5 +1,5 @@
 <script>
-	import { phabOnboardingStateStore } from './stores/onboardPhab';
+	import { phabOnboardingState } from './stores/storePhabOnboardingState.js';
 
 
 	let onBoardingWrapperNode;
@@ -8,30 +8,30 @@
 
 	let pointerIsDown = false;
 
-	const {
-		pressAndHoldTheButton,
-		keepingGoing,
-		thatIsGreat,
-		nowReleaseAndWait,
-		waitALittleLonger,
-		now,
-		pressHoldAndBreathe
-	} = $phabOnboardingStateStore.progress;
-
-	const {
-		tryPressingLonger,
-		dontPressJustYet,
-		releaseTheButton,
-		letsStartAgain
-	} = $phabOnboardingStateStore.progressInterrupted;
+	// const {
+	// 	pressAndHoldTheButton,
+	// 	keepingGoing,
+	// 	thatIsGreat,
+	// 	nowReleaseAndWait,
+	// 	waitALittleLonger,
+	// 	now,
+	// 	pressHoldAndBreathe
+	// } = $phabOnboardingState.progress;
+	//
+	// const {
+	// 	tryPressingLonger,
+	// 	dontPressJustYet,
+	// 	releaseTheButton,
+	// 	letsStartAgain
+	// } = $phabOnboardingState.progressInterrupted;
 
 
 	function skipOnBoarding() {
 		// onBoardPhab.update.skipped = true;
-		$phabOnboardingStateStore.skipped = true;
+		$phabOnboardingState.skipped = true;
 
 		// $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration.set(60);
-		console.log('skipped', $phabOnboardingStateStore);
+		console.log('skipped', $phabOnboardingState);
 		// console.log('onboardPhab', $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration);
 		// console.log('pressAndHoldTheButton', pressAndHoldTheButton);
 	}
@@ -60,7 +60,7 @@
 </script>
 
 
-{#if !$phabOnboardingStateStore.skipped }<button on:click={skipOnBoarding} data-testid='skip-onboarding' >Hide text</button>{/if}
+<!--{#if !$phabOnboardingState.skipped }<button on:click={skipOnBoarding} data-testid='skip-onboarding' >Hide text</button>{/if}-->
 
 <style>
     button {
