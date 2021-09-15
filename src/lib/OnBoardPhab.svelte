@@ -26,15 +26,6 @@
 	// } = $phabOnboardingState.progressInterrupted;
 
 
-	function skipOnBoarding() {
-		// onBoardPhab.update.skipped = true;
-		phabOnboardingState.skip();
-
-		// $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration.set(60);
-		console.log('skipped', $phabOnboardingState);
-		// console.log('onboardPhab', $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration);
-		// console.log('pressAndHoldTheButton', pressAndHoldTheButton);
-	}
 
 </script>
 
@@ -60,7 +51,7 @@
 </script>
 
 
-{#if !$phabOnboardingState.skipped }<button on:click={skipOnBoarding} data-testid='skip-onboarding' >Hide text</button>{/if}
+{#if !$phabOnboardingState.skipped }<button on:click={phabOnboardingState.skip} data-testid='skip-onboarding' >Hide text</button>{/if}
 
 <style>
     button {
