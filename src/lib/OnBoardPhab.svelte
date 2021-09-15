@@ -8,34 +8,18 @@
 
 	let pointerIsDown = false;
 
-	// const {
-	// 	pressAndHoldTheButton,
-	// 	keepingGoing,
-	// 	thatIsGreat,
-	// 	nowReleaseAndWait,
-	// 	waitALittleLonger,
-	// 	now,
-	// 	pressHoldAndBreathe
-	// } = $phabOnboardingState.progress;
-	//
-	// const {
-	// 	tryPressingLonger,
-	// 	dontPressJustYet,
-	// 	releaseTheButton,
-	// 	letsStartAgain
-	// } = $phabOnboardingState.progressInterrupted;
+
+
+	function onBoardingControlFlow() {
+		if ($phabOnboardingState.skip || $phabOnboardingState.passedAll) {
+			console.log('return')
+		} else {
+			console.log('run control flow')
+		}
 
 
 
-</script>
-
-<script context='module'>
-
-
-	export function onBoardingControlFlow() {
-		console.log('Delete me')
-
-		// console.log('onBoardPhab', $onBoardPhab.progress.length)
+		console.log('onBoardPhab', $onBoardPhab.progress.length)
 		// for (let i = 0; i < onBoardPhab.progress.length; i++) {
 		// 	if (i.passed === true) {
 		// 		'skip';
@@ -47,6 +31,8 @@
 		// 	}
 		// }
 	}
+
+
 
 </script>
 

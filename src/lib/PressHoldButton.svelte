@@ -1,9 +1,6 @@
 <script>
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
-	import { onBoardingControlFlow} from './OnBoardPhab.svelte'
-	import { phabOnboardingState } from './stores/storePhabOnboardingState.js';
-
 
 	let phabButtonIsDown = false;
 
@@ -18,26 +15,6 @@
 		)
 	}
 
-	function controlFlowHere() {
-		// const progressLength = Object.keys($onBoardPhab.progress).length
-		// console.log(progressLength);
-
-		// console.log('progress length',$phabOnboardingState.progress.length)
-		console.log('phab onboarding state', $phabOnboardingState)
-
-		// likely need to refactor the store to be array.
-		// for (let i = 0; i < progressLength; i++) {
-		// 	if (i.passed === true) {
-		// 		console.log('i passed', i.passed)
-		// 		'skip';
-		// 	} else if (i.passed === false && counter <= i.requiredMinDuration) {
-		// 		'i.instruction';
-		// 		if (counter === i.requiredMinDuration) {
-		// 			i.passed = true;
-		// 		}
-		// 	}
-		// }
-	}
 
 
 	const handlePhabButtonIsDown = () => {
