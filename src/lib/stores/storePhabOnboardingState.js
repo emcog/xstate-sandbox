@@ -2,76 +2,76 @@ import { writable } from 'svelte/store';
 
 
 function createStorePhabOnboardingState() {
-	const { subscribe, set, update } = writable({
-		skipped: false,
-		passedAll: false,
-		progress: [
-			{
-				instruction: 'Press and hold the button',
-				requiredMinDuration: 50,
-				passed: false,
-				get interrupted() {
-					storePhabOnboardingState.progress.pressAndHoldTheButton.instruction;
-				},
-				node: undefined
+const { subscribe, set, update } = writable({
+	skipped: false,
+	passedAll: false,
+	progress: [
+		{
+			instruction: 'Press and hold the button',
+			requiredMinDuration: 50,
+			passed: false,
+			get interrupted() {
+				storePhabOnboardingState.progress.pressAndHoldTheButton.instruction;
 			},
-			{
-				instruction: "Keep going",
-				requiredMinDuration: 100,
-				passed: false,
-				get interrupted() {
-					storePhabOnboardingState.progressInterrupted.tryPressingLonger.instruction;
-				},
-				node: undefined
+			node: undefined
+		},
+		{
+			instruction: "Keep going",
+			requiredMinDuration: 100,
+			passed: false,
+			get interrupted() {
+				storePhabOnboardingState.progressInterrupted.tryPressingLonger.instruction;
 			},
-			{
-				instruction: "That is great",
-				requiredMinDuration: 200,
-				passed: false,
-				get interrupted() {
-					tryPressingLonger.instruction;
-				},
-				node: undefined
+			node: undefined
+		},
+		{
+			instruction: "That is great",
+			requiredMinDuration: 200,
+			passed: false,
+			get interrupted() {
+				tryPressingLonger.instruction;
 			},
-			{
-				instruction: "Now release and wait",
-				requiredMinDuration: 400,
-				passed: false,
-				get interrupted() {
-					dontPressJustYet.instruction;
-				},
-				node: undefined
+			node: undefined
+		},
+		{
+			instruction: "Now release and wait",
+			requiredMinDuration: 400,
+			passed: false,
+			get interrupted() {
+				dontPressJustYet.instruction;
 			},
-			{
-				instruction: "Wait a little longer",
-				requiredDuration: 200,
-				passed: false,
-				get interrupted() {
-					tryPressingLonger.instruction;
-				},
-				node: undefined
+			node: undefined
+		},
+		{
+			instruction: "Wait a little longer",
+			requiredDuration: 200,
+			passed: false,
+			get interrupted() {
+				tryPressingLonger.instruction;
 			},
-			{
-				instruction: "Now",
-				requiredDuration: 40,
-				passed: false,
-				node: undefined
+			node: undefined
+		},
+		{
+			instruction: "Now",
+			requiredDuration: 40,
+			passed: false,
+			node: undefined
+		},
+		{
+			instruction: "Press hold and breathe",
+			requiredDuration: 10,
+			passed: false,
+			get interrupted() {
+				tryPressingLonger.instruction;
 			},
-			{
-				instruction: "Press hold and breathe",
-				requiredDuration: 10,
-				passed: false,
-				get interrupted() {
-					tryPressingLonger.instruction;
-				},
-				node: undefined
-			}
-		],
-		progressInterrupted: {
-			tryPressingLonger: {
-				passed: false,
-				get progress() {
-					keepingGoing.instruction;
+			node: undefined
+		}
+	],
+	progressInterrupted: {
+		tryPressingLonger: {
+			passed: false,
+			get progress() {
+				keepingGoing.instruction;
 				},
 				node: undefined,
 				instruction: "Try pressing lgutonger"
@@ -114,7 +114,12 @@ function createStorePhabOnboardingState() {
 
 
 	return {
-		subscribe
+		subscribe,
+		skip: () => set({
+			skipped: true
+		})
+		// todo rewrite as a setter/updater
+		// skip: () => set(skipped(true))
 		//	controlFlow: () =>
 	};
 }

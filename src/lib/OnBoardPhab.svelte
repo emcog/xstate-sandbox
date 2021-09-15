@@ -28,7 +28,7 @@
 
 	function skipOnBoarding() {
 		// onBoardPhab.update.skipped = true;
-		$phabOnboardingState.skipped = true;
+		phabOnboardingState.skip();
 
 		// $onBoardPhab.progress.pressAndHoldTheButton.requiredMinDuration.set(60);
 		console.log('skipped', $phabOnboardingState);
@@ -60,7 +60,7 @@
 </script>
 
 
-<!--{#if !$phabOnboardingState.skipped }<button on:click={skipOnBoarding} data-testid='skip-onboarding' >Hide text</button>{/if}-->
+{#if !$phabOnboardingState.skipped }<button on:click={skipOnBoarding} data-testid='skip-onboarding' >Hide text</button>{/if}
 
 <style>
     button {
