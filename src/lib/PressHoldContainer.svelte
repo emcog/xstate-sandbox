@@ -2,6 +2,7 @@
 	// ---> Svelte core
 	import { onMount } from 'svelte';
 	import { phabState } from './stores/storePhabState.js';
+	import { phabSizeCounter } from './stores/storePressHoldCounter.js';
 // ---> Svelte component
 	import PressHoldButton from './PressHoldButton.svelte'
 	import PhabTextDisplay from '$lib/PhabTextDisplay.svelte'
@@ -30,7 +31,7 @@
 	let sizeOnPress;
 	let sizeOnRelease;
 	// let size = 0;
-	let size = $phabState.phabCounter;
+	let size;
 	// assign a value to elapsedTimeUp on first use
 	let countUp = 0;
 	let countDown = 0;
@@ -88,7 +89,9 @@
 
 	const loopingIncrement = () => {
 		size += 1.15;
-		console.log(size)
+		console.log('size',size)
+		phabSizeCounter.update(n => n + 1.5);
+		console.log('phabState',$phabState);
 
 		// countUp += 1.75 / fps;
 		// size = easing.easeInOutSine(countUp * 1000 / pHoldCount4.avg() || initialiseBreath, countUp * 1000, sizeOnPress || 0, finish, pHoldCount4.avg() || initialiseBreath);
@@ -96,6 +99,7 @@
 		//store size to pass to loopingDecrement
 		// sizeOnRelease = size;
 		// console.log( 'countUp', countUp, 'size on press', sizeOnPress, 'finish', finish, 'phC4 avg', pHoldCount4.avg(), 'initalB', initialiseBreath)
+		console.log('phabSizeCounter',$phabSizeCounter);
 		changeSize();
 	};
 
@@ -105,11 +109,15 @@
 		// countDown += .9 / fps;
 		loopingDecrementId = requestAnimationFrame(loopingDecrement);
 		// size = sizeOnRelease - easing.easeOutSine(countDown * 1000 / lastPhDuration, countDown * 1000, start, sizeOnRelease, lastPhDuration);
+		phabSizeCounter.update(n => n - 0.9);
 		if (size <= 1) { cancelAnimationFrame(loopingDecrementId) }
+		if ($phabSizeCounter <= 1) { cancelAnimationFrame(loopingDecrementId) }
+		console.log($phabSizeCounter);
+
 		//store size to pass to loopingDecrement
 		// sizeOnPress = size;
 		// console.log(size)
-		console.log('lastPH', lastPhDuration, 'countDown', countDown, 'countUp', countUp, 'start', start, 'sizeOnRelease', sizeOnRelease)
+		// console.log('lastPH', lastPhDuration, 'countDown', countDown, 'countUp', countUp, 'start', start, 'sizeOnRelease', sizeOnRelease)
 		changeSize();
 	}
 

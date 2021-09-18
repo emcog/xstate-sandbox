@@ -3,10 +3,9 @@ import { writable } from 'svelte/store';
 
 function createStorePhabState() {
 const { subscribe, set, update } = writable({
-	phabCounter: 0,
 	skipped: false,
 	passedAll: false,
-	active: 0,
+	active_step: 0,
 	steps: [
 		{
 			instruction: 'Press and hold the button',
@@ -119,17 +118,14 @@ const { subscribe, set, update } = writable({
 		subscribe,
 		SKIP: () => set({
 			skipped: true
-		}),
-		PROGRESS: (steps) => set({
-			active: steps.find(step => step.passed === false) })
-		//import counter value
+		})
+		// ,
+		// PROGRESS: (steps, phabCounter) => set({
+		// 	active_step: steps.find(step => step.passed === false && phabCounter <= step.requiredMinDuration)
+		// 	})
 		}
 
 	}
 
 
-
-
-
 export const phabState = createStorePhabState();
-// export const phabState = console.log('banan');
