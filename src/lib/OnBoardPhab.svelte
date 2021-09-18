@@ -17,21 +17,9 @@
 			console.log('run control flow')
 			$phabOnboardingState.PROGRESS
 			console.log($phabOnboardingState.active)
+			console.log($phabOnboardingState.phabCount)
 		}
 
-
-
-
-		// for (let i = 0; i < onBoardPhab.progress.length; i++) {
-		// 	if (i.passed === true) {
-		// 		'skip';
-		// 	} else if (i.passed === false && counter <= i.requiredMinDuration) {
-		// 		'i.instruction';
-		// 		if (counter === i.requiredMinDuration) {
-		// 			i.passed = true;
-		// 		}
-		// 	}
-		// }
 	}
 
 

@@ -20,7 +20,7 @@
 	const handlePhabButtonIsDown = () => {
 		phabButtonIsDown = true;
 		console.log('button down');
-		controlFlowHere();
+		// controlFlowHere();
 		dispatch('phabButtonIsDown', {
 			// phabButtonIsDown is true
 			phabButtonIsDown

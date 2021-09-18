@@ -1,8 +1,9 @@
 import { writable } from 'svelte/store';
 
 
-function createStorePhabOnboardingState() {
+function createStorePhabOnboardingState(storePhabCounter) {
 const { subscribe, set, update } = writable({
+	phabCounter: 0,
 	skipped: false,
 	passedAll: false,
 	active: 0,
@@ -121,7 +122,8 @@ const { subscribe, set, update } = writable({
 		}),
 		PROGRESS: (steps) => set({
 			active: steps.find(step => step.passed === false) })
-		}			// set active instruction
+		//import counter value
+		}
 
 	}
 
