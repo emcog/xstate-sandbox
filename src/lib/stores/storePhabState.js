@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 
-function createStorePhabOnboardingState(storePhabCounter) {
+function createStorePhabState() {
 const { subscribe, set, update } = writable({
 	phabCounter: 0,
 	skipped: false,
@@ -13,7 +13,7 @@ const { subscribe, set, update } = writable({
 			requiredMinDuration: 50,
 			passed: false,
 			get interrupted() {
-				storePhabOnboardingState.progress.pressAndHoldTheButton.instruction;
+				phabState.progress.pressAndHoldTheButton.instruction;
 			},
 			node: undefined
 		},
@@ -22,7 +22,7 @@ const { subscribe, set, update } = writable({
 			requiredMinDuration: 100,
 			passed: false,
 			get interrupted() {
-				storePhabOnboardingState.progressInterrupted.tryPressingLonger.instruction;
+				phabState.progressInterrupted.tryPressingLonger.instruction;
 			},
 			node: undefined
 		},
@@ -131,5 +131,5 @@ const { subscribe, set, update } = writable({
 
 
 
-export const phabOnboardingState = createStorePhabOnboardingState();
-// export const phabOnboardingState = console.log('banan');
+export const phabState = createStorePhabState();
+// export const phabState = console.log('banan');

@@ -1,7 +1,7 @@
 <script>
 	// ---> Svelte core
 	import { onMount } from 'svelte';
-	import { phabOnboardingState } from './stores/storePhabOnboardingState.js';
+	import { phabState } from './stores/storePhabState.js';
 // ---> Svelte component
 	import PressHoldButton from './PressHoldButton.svelte'
 	import PhabTextDisplay from '$lib/PhabTextDisplay.svelte'
@@ -30,7 +30,7 @@
 	let sizeOnPress;
 	let sizeOnRelease;
 	// let size = 0;
-	let size = $phabOnboardingState.phabCounter;
+	let size = $phabState.phabCounter;
 	// assign a value to elapsedTimeUp on first use
 	let countUp = 0;
 	let countDown = 0;

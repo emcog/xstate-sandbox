@@ -1,5 +1,5 @@
 <script>
-	import { phabOnboardingState } from './stores/storePhabOnboardingState.js';
+	import { phabState } from './stores/storePhabState.js';
 
 
 	let onBoardingWrapperNode;
@@ -11,13 +11,13 @@
 
 
 	function onBoardingControlFlow() {
-		if ($phabOnboardingState.skipped || $phabOnboardingState.passedAll) {
+		if ($phabState.skipped || $phabState.passedAll) {
 			console.log('return')
 		} else {
 			console.log('run control flow')
-			$phabOnboardingState.PROGRESS
-			console.log($phabOnboardingState.active)
-			console.log($phabOnboardingState.phabCount)
+			$phabState.PROGRESS
+			console.log($phabState.active)
+			console.log($phabState.phabCount)
 		}
 
 	}
@@ -27,7 +27,7 @@
 </script>
 <button on:click={onBoardingControlFlow}>test control flow</button>
 
-{#if !$phabOnboardingState.skipped }<button on:click={ phabOnboardingState.SKIP } data-testid='skip-onboarding' >Hide text</button>{/if}
+{#if !$phabState.skipped }<button on:click={ phabState.SKIP } data-testid='skip-onboarding'>Hide text</button>{/if}
 
 <style>
     button {
