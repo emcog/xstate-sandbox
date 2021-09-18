@@ -5,7 +5,8 @@ function createStorePhabOnboardingState() {
 const { subscribe, set, update } = writable({
 	skipped: false,
 	passedAll: false,
-	progress: [
+	active: 0,
+	steps: [
 		{
 			instruction: 'Press and hold the button',
 			requiredMinDuration: 50,
@@ -115,14 +116,14 @@ const { subscribe, set, update } = writable({
 
 	return {
 		subscribe,
-		skip: () => set({
+		SKIP: () => set({
 			skipped: true
-		})
-		// todo rewrite as a setter/updater
-		// skip: () => set(skipped(true))
-		//	controlFlow: () =>
-	};
-}
+		}),
+		PROGRESS: (steps) => set({
+			active: steps.find(step => step.passed === false) })
+		}			// set active instruction
+
+	}
 
 
 

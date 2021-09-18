@@ -11,15 +11,17 @@
 
 
 	function onBoardingControlFlow() {
-		if ($phabOnboardingState.skip || $phabOnboardingState.passedAll) {
+		if ($phabOnboardingState.skipped || $phabOnboardingState.passedAll) {
 			console.log('return')
 		} else {
 			console.log('run control flow')
+			$phabOnboardingState.PROGRESS
+			console.log($phabOnboardingState.active)
 		}
 
 
 
-		console.log('onBoardPhab', $onBoardPhab.progress.length)
+
 		// for (let i = 0; i < onBoardPhab.progress.length; i++) {
 		// 	if (i.passed === true) {
 		// 		'skip';
@@ -35,9 +37,9 @@
 
 
 </script>
+<button on:click={onBoardingControlFlow}>test control flow</button>
 
-
-{#if !$phabOnboardingState.skipped }<button on:click={phabOnboardingState.skip} data-testid='skip-onboarding' >Hide text</button>{/if}
+{#if !$phabOnboardingState.skipped }<button on:click={ phabOnboardingState.SKIP } data-testid='skip-onboarding' >Hide text</button>{/if}
 
 <style>
     button {
