@@ -3,6 +3,6 @@ import { writable } from 'svelte/store';
 // import CBuffer from '$lib/phab/js/modules/cbuffer.js';
 // import { easing } from '$lib/phab/js/modules/easings.js';
 
-export const phabSizeCounter = writable(0);
+export const phabCounter = writable(0);
 
 

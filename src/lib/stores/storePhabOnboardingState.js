@@ -1,18 +1,18 @@
-import { writable } from 'svelte/store';
+import { writable, derived } from 'svelte/store';
+import phabCounter from './storePhabCounter'
+//todo refactor back to creatStorePhabOnboardingState;
 
 
-function createStorePhabState() {
-const { subscribe, set, update } = writable({
+export const storePhabOnboardingState = writable({
 	skipped: false,
 	passedAll: false,
-	active_step: 0,
 	steps: [
 		{
 			instruction: 'Press and hold the button',
 			requiredMinDuration: 50,
 			passed: false,
 			get interrupted() {
-				phabState.progress.pressAndHoldTheButton.instruction;
+				phabOnboardingState.progress.pressAndHoldTheButton.instruction;
 			},
 			node: undefined
 		},
@@ -21,7 +21,7 @@ const { subscribe, set, update } = writable({
 			requiredMinDuration: 100,
 			passed: false,
 			get interrupted() {
-				phabState.progressInterrupted.tryPressingLonger.instruction;
+				phabOnboardingState.progressInterrupted.tryPressingLonger.instruction;
 			},
 			node: undefined
 		},
@@ -114,18 +114,4 @@ const { subscribe, set, update } = writable({
 	});
 
 
-	return {
-		subscribe,
-		SKIP: () => set({
-			skipped: true
-		})
-		// ,
-		// PROGRESS: (steps, phabCounter) => set({
-		// 	active_step: steps.find(step => step.passed === false && phabCounter <= step.requiredMinDuration)
-		// 	})
-		}
-
-	}
-
-
-export const phabState = createStorePhabState();
+export const activeStep = derived([ storePhabOnboardingState.steps, phabCounter], [$storePhabOnboardingState.steps, phabCounter] )

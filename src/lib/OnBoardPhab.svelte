@@ -1,5 +1,5 @@
 <script>
-	import { phabState } from './stores/storePhabState.js';
+	import { phabOnboardingState } from './stores/storephabOnboardingState.js';
 
 
 	let onBoardingWrapperNode;
@@ -11,19 +11,19 @@
 
 
 	function onBoardingControlFlow() {
-		if ($phabState.skipped || $phabState.passedAll) {
+		if ($phabOnboardingState.skipped || $phabOnboardingState.passedAll) {
 			console.log('return')
 		} else {
 			console.log('run control flow')
-			$phabState.PROGRESS
-			console.log($phabState.active)
-			console.log($phabState.phabCount)
+			$phabOnboardingState.PROGRESS
+			console.log($phabOnboardingState.active)
+			console.log($phabOnboardingState.phabCount)
 		}
 	}
 
 	function increment() {
-		phabState.INCREMENTCOUNTER();
-		console.log(phabState.INCREMENTCOUNTER);
+		phabOnboardingState.INCREMENTCOUNTER();
+		console.log(phabOnboardingState.INCREMENTCOUNTER);
 	}
 
 
@@ -31,7 +31,7 @@
 </script>
 <button on:click={onBoardingControlFlow}>test control flow</button>
 
-{#if !$phabState.skipped }<button on:click={ phabState.SKIP } data-testid='skip-onboarding'>Hide text</button>{/if}
+{#if !$phabOnboardingState.skipped }<button on:click={ phabOnboardingState.SKIP } data-testid='skip-onboarding'>Hide text</button>{/if}
 
 <button class='mt-20' on:click={ increment }>INCREMENT</button>
 

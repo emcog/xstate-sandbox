@@ -1,8 +1,8 @@
 <script>
 	// ---> Svelte core
 	import { onMount } from 'svelte';
-	import { phabState } from './stores/storePhabState.js';
-	import { phabSizeCounter } from './stores/storePressHoldCounter.js';
+	import { phabOnboardingState } from './stores/storephabOnboardingState.js';
+	import { phabCounter } from './stores/storePhabCounter.js';
 // ---> Svelte component
 	import PressHoldButton from './PressHoldButton.svelte'
 	import PhabTextDisplay from '$lib/PhabTextDisplay.svelte'
@@ -90,8 +90,8 @@
 	const loopingIncrement = () => {
 		size += 1.15;
 		console.log('size',size)
-		phabSizeCounter.update(n => n + 1.5);
-		console.log('phabState',$phabState);
+		phabCounter.update(n => n + 1.5);
+		console.log('phabOnboardingState',$phabOnboardingState);
 
 		// countUp += 1.75 / fps;
 		// size = easing.easeInOutSine(countUp * 1000 / pHoldCount4.avg() || initialiseBreath, countUp * 1000, sizeOnPress || 0, finish, pHoldCount4.avg() || initialiseBreath);
@@ -99,7 +99,7 @@
 		//store size to pass to loopingDecrement
 		// sizeOnRelease = size;
 		// console.log( 'countUp', countUp, 'size on press', sizeOnPress, 'finish', finish, 'phC4 avg', pHoldCount4.avg(), 'initalB', initialiseBreath)
-		console.log('phabSizeCounter',$phabSizeCounter);
+		console.log('phabCounter',$phabCounter);
 		changeSize();
 	};
 
@@ -109,10 +109,10 @@
 		// countDown += .9 / fps;
 		loopingDecrementId = requestAnimationFrame(loopingDecrement);
 		// size = sizeOnRelease - easing.easeOutSine(countDown * 1000 / lastPhDuration, countDown * 1000, start, sizeOnRelease, lastPhDuration);
-		phabSizeCounter.update(n => n - 0.9);
+		phabCounter.update(n => n - 0.9);
 		if (size <= 1) { cancelAnimationFrame(loopingDecrementId) }
-		if ($phabSizeCounter <= 1) { cancelAnimationFrame(loopingDecrementId) }
-		console.log($phabSizeCounter);
+		if ($phabCounter <= 1) { cancelAnimationFrame(loopingDecrementId) }
+		console.log($phabCounter);
 
 		//store size to pass to loopingDecrement
 		// sizeOnPress = size;
