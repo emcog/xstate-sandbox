@@ -1,10 +1,10 @@
 <script>
-	import { phabOnboardingState } from './stores/storephabOnboardingState.js';
+	import { storePhabOnboardingState } from './stores/storephabOnboardingState.js';
 
 
 </script>
 <!--todo replace 0 with conditional logic which displays the first instruction which is not skipped-->
-{#if !$phabOnboardingState.skipped }<span>{ $phabOnboardingState.steps[0].instruction }</span>{/if}
+{#if !$storePhabOnboardingState.skipped }<span>{ $storePhabOnboardingState.steps[0].instruction }</span>{/if}
 <style>
 	span {
       z-index: 10;

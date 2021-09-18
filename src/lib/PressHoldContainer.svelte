@@ -1,7 +1,7 @@
 <script>
 	// ---> Svelte core
 	import { onMount } from 'svelte';
-	import { phabOnboardingState } from './stores/storephabOnboardingState.js';
+	import { storePhabOnboardingState as phabOnboardingState } from './stores/storePhabOnboardingState.js';
 	import { phabCounter } from './stores/storePhabCounter.js';
 // ---> Svelte component
 	import PressHoldButton from './PressHoldButton.svelte'
@@ -64,7 +64,8 @@
 
 	const changeSize = () => {
 		const suffix = 'px';
-		document.documentElement.style.setProperty(`--size`, size + suffix);
+		// document.documentElement.style.setProperty(`--size`, size + suffix);
+		document.documentElement.style.setProperty(`--size`, $phabCounter + suffix);
 	}
 
 	// ----> Utilites end

@@ -1,5 +1,5 @@
 <script>
-	import { phabOnboardingState } from './stores/storephabOnboardingState.js';
+	import { storePhabOnboardingState as phabOnboardingState } from './stores/storephabOnboardingState.js';
 
 
 	let onBoardingWrapperNode;

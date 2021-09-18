@@ -1,7 +1,5 @@
 import { writable, derived } from 'svelte/store';
-import phabCounter from './storePhabCounter'
-//todo refactor back to creatStorePhabOnboardingState;
-
+// import { phabCounter } from './storePhabCounter';
 
 export const storePhabOnboardingState = writable({
 	skipped: false,
@@ -114,4 +112,4 @@ export const storePhabOnboardingState = writable({
 	});
 
 
-export const activeStep = derived([ storePhabOnboardingState.steps, phabCounter], [$storePhabOnboardingState.steps, phabCounter] )
+// export const activeStep = derived([ storePhabOnboardingState.steps, phabCounter], [$storePhabOnboardingState.steps, phabCounter] )
