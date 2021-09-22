@@ -7,7 +7,7 @@ export const storePhabOnboardingState = writable({
 	steps: [
 		{
 			instruction: 'Press and hold the button',
-			requiredMinDuration: 50,
+			requiredCounterValue: 50,
 			passed: false,
 			get interrupted() {
 				phabOnboardingState.progress.pressAndHoldTheButton.instruction;
@@ -16,7 +16,7 @@ export const storePhabOnboardingState = writable({
 		},
 		{
 			instruction: "Keep going",
-			requiredMinDuration: 100,
+			requiredCounterValue: 100,
 			passed: false,
 			get interrupted() {
 				phabOnboardingState.progressInterrupted.tryPressingLonger.instruction;
@@ -25,7 +25,7 @@ export const storePhabOnboardingState = writable({
 		},
 		{
 			instruction: "That is great",
-			requiredMinDuration: 200,
+			requiredCounterValue: 200,
 			passed: false,
 			get interrupted() {
 				tryPressingLonger.instruction;
@@ -34,7 +34,7 @@ export const storePhabOnboardingState = writable({
 		},
 		{
 			instruction: "Now release and wait",
-			requiredMinDuration: 400,
+			requiredCounterValue: 400,
 			passed: false,
 			get interrupted() {
 				dontPressJustYet.instruction;
@@ -112,4 +112,16 @@ export const storePhabOnboardingState = writable({
 	});
 
 
-// export const activeStep = derived([ storePhabOnboardingState.steps, phabCounter], [$storePhabOnboardingState.steps, phabCounter] )
+// export const activeStep =
+// 	derived([ storePhabOnboardingState, phabCounter], ([$storePhabOnboardingState, $phabCounter]) =>
+// 		$steps[$counter]);
+
+
+// activeStep = storePhabOnboardingState.steps.find(step => step.passed === false)
+// activeStep = storePhabOnboardingState.steps.find(step => !step.passed)
+
+
+/* derive active step from the counter 
+activeStep is defined by: find the step which is not passed
+when activeStep.requiredCounterValue === counter value, set activeStep.passed = true
+ */

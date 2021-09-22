@@ -1,41 +1,39 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
+	import { isPhabButtonDown } from '$lib/stores/storePhabButtonState';
 
-	let phabButtonIsDown = false;
 
-	const handleButtonUp = () => {
-		phabButtonIsDown = false;
-		//why is this wording so confusing?
-		dispatch('buttonUp', {
-			// phabButtonIsDown is false
-			phabButtonIsDown
-			// buttonUp
-				}
-		)
+	function handlePhabButtonUp() {
+		isPhabButtonDown.set(true);
+		console.log('handlePhabButtonUp')
+		console.log('isPhabButtonDown', $isPhabButtonDown )
 	}
 
 
 
-	const handlePhabButtonIsDown = () => {
-		phabButtonIsDown = true;
-		console.log('button down');
-		// controlFlowHere();
-		dispatch('phabButtonIsDown', {
-			// phabButtonIsDown is true
-			phabButtonIsDown
-				}
-		)
+	function handlePhabButtonDown() {
+		isPhabButtonDown.set(false);
+		console.log('handlePhabButtonDown')
+		console.log('isPhabButtonDown', $isPhabButtonDown )
 	}
 
 </script>
 
-<button id="press-hold-button"
-				on:mousedown={handlePhabButtonIsDown}
-				on:touchstart={handlePhabButtonIsDown}
-				on:mouseup={handleButtonUp}
-				on:touchend={handleButtonUp}>
+<!--<button id="press-hold-button"-->
+<!--				on:mousedown={handlePhabButtonIsDown}-->
+<!--				on:touchstart={handlePhabButtonIsDown}-->
+<!--				on:mouseup={handleButtonUp}-->
+<!--				on:touchend={handleButtonUp}>-->
 				<!--{phabButtonIsDown}-->
+<!--				on:mousedown={handlePhabButtonIsDown}-->
+<!--				on:touchstart={handlePhabButtonIsDown}-->
+<!--				on:mouseup={handleButtonUp}-->
+<!--				on:touchend={handleButtonUp}>-->
+<!--</button>-->
+<button id="press-hold-button"
+				on:mousedown={ handlePhabButtonDown }
+				on:touchstart={ handlePhabButtonDown }
+				on:mouseup={ handlePhabButtonUp }
+				on:touchend={ handlePhabButtonUp } >
 </button>
 
 

@@ -1,5 +1,6 @@
 <script>
 	import { storePhabOnboardingState as phabOnboardingState } from './stores/storephabOnboardingState.js';
+	import { phabCounter } from './stores/storePhabCounter.js';
 
 
 	let onBoardingWrapperNode;
@@ -7,33 +8,37 @@
 	let onBoarding02;
 
 	let pointerIsDown = false;
+	let activeStep = $phabOnboardingState.steps[0];
 
 
-
+	// trigger onBoardingControlFlow when pointer is Down
 	function onBoardingControlFlow() {
 		if ($phabOnboardingState.skipped || $phabOnboardingState.passedAll) {
-			console.log('return')
+			console.log('if')
 		} else {
 			console.log('run control flow')
-			$phabOnboardingState.PROGRESS
-			console.log($phabOnboardingState.active)
-			console.log($phabOnboardingState.phabCount)
+			activeStep = $phabOnboardingState.steps.find(step => !step.passed);
+			if(activeStep.requiredCounterValue === $phabCounter) {
+				activeStep.passed = true;
+			}
+			// console.log(activeStep);
+			// (if activeStep.requiredMinDuration === $phabCounter) {
+			//	activeStep.passed === true;
+			// }
+			console.log($phabCounter);
 		}
 	}
 
-	function increment() {
-		phabOnboardingState.INCREMENTCOUNTER();
-		console.log(phabOnboardingState.INCREMENTCOUNTER);
-	}
 
 
+// take counter, compare it to active.requiredcount, if counter >= required count then sent active.passed = true
 
 </script>
-<button on:click={onBoardingControlFlow}>test control flow</button>
+<!--<button on:click={onBoardingControlFlow}>test control flow</button>-->
 
 {#if !$phabOnboardingState.skipped }<button on:click={ phabOnboardingState.SKIP } data-testid='skip-onboarding'>Hide text</button>{/if}
 
-<button class='mt-20' on:click={ increment }>INCREMENT</button>
+{#if !$phabOnboardingState.skipped }<p>{ activeStep.instruction }</p>{/if}
 
 <style>
     button {
@@ -49,7 +54,14 @@
         /*color: white;*/
 				/*background: orange;*/
     }
-		.mt-20 {
-				margin-top: 50px;
-		}
+
+    span {
+        z-index: 10;
+        grid-column: 2/3;
+        grid-row: 4/5;
+        justify-self: center;
+        align-self: start;
+        color: white;
+        margin-bottom: 75px;
+    }
 </style>
