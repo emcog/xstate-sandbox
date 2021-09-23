@@ -12,21 +12,18 @@
 	let pointerIsDown = false;
 	let activeStep = $phabOnboardingState.steps[0];
 
-	$: if($oddsEqualActivePress > 0 ) { onBoardingControlFlow() }
+	$: if($oddsEqualActivePress > 0 && $phabCounter > 0 ) { onBoardingControlFlow() }
 
 	// trigger onBoardingControlFlow when pointer is Down
 
 	function onBoardingControlFlow() {
 			// console.log('onboarding control flow')
 			activeStep = $phabOnboardingState.steps.find(step => !step.passed);
-			if(activeStep.requiredCounterValue === $phabCounter) {
+			console.log(activeStep.instruction, activeStep.requiredCounterValue, $phabCounter);
+			if(activeStep.requiredCounterValue <= $phabCounter) {
+				console.log('CONGRATULATIONS YOU PASSED THIS STEP')
 				activeStep.passed = true;
 			}
-			console.log(activeStep);
-			if (activeStep.requiredMinDuration === $phabCounter) {
-				activeStep.passed === true;
-			}
-			// console.log($phabCounter);
 	}
 
 
