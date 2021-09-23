@@ -1,6 +1,5 @@
 <script>
 	import { storePhabOnboardingState as phabOnboardingState } from './stores/storephabOnboardingState.js';
-	import { phabCounter } from './stores/storePhabCounter.js';
 
 
 	let onBoardingWrapperNode;
@@ -18,14 +17,14 @@
 		} else {
 			console.log('run control flow')
 			activeStep = $phabOnboardingState.steps.find(step => !step.passed);
-			if(activeStep.requiredCounterValue === $phabCounter) {
-				activeStep.passed = true;
-			}
+			// if(activeStep.requiredCounterValue === $phabCounter) {
+			// 	activeStep.passed = true;
+			// }
 			// console.log(activeStep);
 			// (if activeStep.requiredMinDuration === $phabCounter) {
 			//	activeStep.passed === true;
 			// }
-			console.log($phabCounter);
+			// console.log($phabCounter);
 		}
 	}
 

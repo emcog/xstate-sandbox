@@ -2,7 +2,9 @@
 	// ---> Svelte core
 	import { onMount } from 'svelte';
 	import { storePhabOnboardingState as phabOnboardingState } from './stores/storePhabOnboardingState.js';
+	import { oddsEqualActivePress } from './stores/storePhabButtonState.js';
 	import { phabCounter } from './stores/storePhabCounter.js';
+
 // ---> Svelte component
 	import PressHoldButton from './PressHoldButton.svelte'
 	import PhabTextDisplay from '$lib/PhabTextDisplay.svelte'
@@ -124,29 +126,30 @@
 
 	function startReleaseFinishPressHold() {
 		cancelAnimationFrame(loopingIncrementId);
-		measureDurationOfPressHold2of2()
-		conditionalPressHoldDuration()
+		// measureDurationOfPressHold2of2()
+		// conditionalPressHoldDuration()
 		// Push the last press hold duration to buffer
-		pHoldCount4.push(lastPhDuration);
+		// pHoldCount4.push(lastPhDuration);
 		loopingDecrement();
 	}
 
 
-	const loopingIncrement = () => {
+	function loopingIncrement() {
 		size += 1.15;
-		console.log('size',size)
+		// console.log('size',size)
 		phabCounter.update(n => n + 1.5);
-		console.log('phabOnboardingState',$phabOnboardingState);
-
 		// countUp += 1.75 / fps;
 		// size = easing.easeInOutSine(countUp * 1000 / pHoldCount4.avg() || initialiseBreath, countUp * 1000, sizeOnPress || 0, finish, pHoldCount4.avg() || initialiseBreath);
+
 		loopingIncrementId = requestAnimationFrame(loopingIncrement);
+
+
 		//store size to pass to loopingDecrement
 		// sizeOnRelease = size;
 		// console.log( 'countUp', countUp, 'size on press', sizeOnPress, 'finish', finish, 'phC4 avg', pHoldCount4.avg(), 'initalB', initialiseBreath)
-		console.log('phabCounter',$phabCounter);
+		// console.log('loopingIncrement – oddsEqualActivePress',$oddsEqualActivePress);
 		changeSize();
-	};
+	}
 
 
 	// function loopingIncrement() {
@@ -188,22 +191,34 @@
 	function loopingDecrement() {
 		size -= .9;
 		// countDown += .9 / fps;
+
 		loopingDecrementId = requestAnimationFrame(loopingDecrement);
+
 		// size = sizeOnRelease - easing.easeOutSine(countDown * 1000 / lastPhDuration, countDown * 1000, start, sizeOnRelease, lastPhDuration);
-		phabCounter.update(n => n - 0.9);
-		if (size <= 1) { cancelAnimationFrame(loopingDecrementId) }
+		phabCounter.update(n => n - 1.16);
+		// if (size <= 1) { cancelAnimationFrame(loopingDecrementId) }
 		if ($phabCounter <= 1) { cancelAnimationFrame(loopingDecrementId) }
-		console.log($phabCounter);
+		// console.log('loopingDecrement  – oddsEqualActivePress', $phabCounter);
 
 		//store size to pass to loopingDecrement
-		// sizeOnPress = size;
-		// console.log(size)
+		// sizeOnPress = size;)
 		// console.log('lastPH', lastPhDuration, 'countDown', countDown, 'countUp', countUp, 'start', start, 'sizeOnRelease', sizeOnRelease)
 		changeSize();
 	}
 
 	// ----> Triggers and loops end
-	$: if($phabCounter) { console.log('loop up') } else (console.log('loop down'));
+	// $: if($oddsEqualActivePress) { console.log('loop up', $phabCounter) } else (console.log('loop down', $phabCounter));
+
+
+	$: if($oddsEqualActivePress > 0) {
+		if ($oddsEqualActivePress % 2 === 1) {
+			// loopingIncrement()
+			startPressHoldFinishRelease()
+		} else if ($oddsEqualActivePress % 2 === 0 ) {
+			// loopingDecrement()
+			startReleaseFinishPressHold()
+		}
+	}
 
 </script>
 
@@ -218,8 +233,8 @@
 <!--		on:phabButtonIsDown={startPressHoldFinishRelease}-->
 <!--	/>-->
 	<PressHoldButton
-		on:phabButtonIsUp={startReleaseFinishPressHold}
-		on:phabButtonIsDown={startPressHoldFinishRelease}
+		on:phabButtonIsUp={ startReleaseFinishPressHold }
+		on:phabButtonIsDown={ startPressHoldFinishRelease }
 	/>
 	<OnBoardPhab />
 </div>

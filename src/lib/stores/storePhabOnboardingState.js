@@ -1,5 +1,4 @@
-import { writable, derived } from 'svelte/store';
-// import { phabCounter } from './storePhabCounter';
+import { writable } from 'svelte/store';
 
 export const storePhabOnboardingState = writable({
 	skipped: false,

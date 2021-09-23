@@ -1,42 +1,27 @@
 <script>
-	import { isPhabButtonDown } from '$lib/stores/storePhabButtonState';
+	import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
 
 
 	function handlePhabButtonUp() {
-		isPhabButtonDown.set(true);
-		console.log('handlePhabButtonUp')
-		console.log('isPhabButtonDown', $isPhabButtonDown )
+		oddsEqualActivePress.update(n => n + 1);
+		console.log('handlePhabButtonUp – oddsEqualActivePress', $oddsEqualActivePress % 2 )
 	}
 
 
-
 	function handlePhabButtonDown() {
-		isPhabButtonDown.set(false);
-		console.log('handlePhabButtonDown')
-		console.log('isPhabButtonDown', $isPhabButtonDown )
+		oddsEqualActivePress.update(n => n + 1);
+		console.log('handlePhabButtonDown – oddsEqualActivePress', $oddsEqualActivePress % 2 )
 	}
 
 </script>
 
-<!--<button id="press-hold-button"-->
-<!--				on:mousedown={handlePhabButtonIsDown}-->
-<!--				on:touchstart={handlePhabButtonIsDown}-->
-<!--				on:mouseup={handleButtonUp}-->
-<!--				on:touchend={handleButtonUp}>-->
-				<!--{phabButtonIsDown}-->
-<!--				on:mousedown={handlePhabButtonIsDown}-->
-<!--				on:touchstart={handlePhabButtonIsDown}-->
-<!--				on:mouseup={handleButtonUp}-->
-<!--				on:touchend={handleButtonUp}>-->
-<!--</button>-->
+
 <button id="press-hold-button"
 				on:mousedown={ handlePhabButtonDown }
 				on:touchstart={ handlePhabButtonDown }
 				on:mouseup={ handlePhabButtonUp }
 				on:touchend={ handlePhabButtonUp } >
 </button>
-
-
 
 <style>
 
