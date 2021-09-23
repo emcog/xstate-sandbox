@@ -1,7 +1,7 @@
 <script>
 	// ---> Svelte core
 	import { onMount } from 'svelte';
-	import { storePhabOnboardingState as phabOnboardingState } from './stores/storePhabOnboardingState.js';
+	// import { storePhabOnboardingState as phabOnboardingState } from './stores/storePhabOnboardingState.js';
 	import { oddsEqualActivePress } from './stores/storePhabButtonState.js';
 	import { phabCounter } from './stores/storePhabCounter.js';
 
@@ -195,7 +195,7 @@
 		loopingDecrementId = requestAnimationFrame(loopingDecrement);
 
 		// size = sizeOnRelease - easing.easeOutSine(countDown * 1000 / lastPhDuration, countDown * 1000, start, sizeOnRelease, lastPhDuration);
-		phabCounter.update(n => n - 1.16);
+		phabCounter.update(n => n - 0.9);
 		// if (size <= 1) { cancelAnimationFrame(loopingDecrementId) }
 		if ($phabCounter <= 1) { cancelAnimationFrame(loopingDecrementId) }
 		// console.log('loopingDecrement  – oddsEqualActivePress', $phabCounter);
@@ -214,7 +214,7 @@
 		if ($oddsEqualActivePress % 2 === 1) {
 			// loopingIncrement()
 			startPressHoldFinishRelease()
-		} else if ($oddsEqualActivePress % 2 === 0 ) {
+		} else {
 			// loopingDecrement()
 			startReleaseFinishPressHold()
 		}
@@ -226,12 +226,6 @@
 <div>
 	<ExpandingCollapsingCircle />
 	<PhabTextDisplay />
-<!--	<PressHoldButton -->
-<!--		on:buttonUp={startReleaseFinishPressHold} -->
-<!--		on:phabButtonIsDown={startPressHoldFinishRelease}-->
-<!--		on:phabButtonIsUp={startReleaseFinishPressHold}-->
-<!--		on:phabButtonIsDown={startPressHoldFinishRelease}-->
-<!--	/>-->
 	<PressHoldButton
 		on:phabButtonIsUp={ startReleaseFinishPressHold }
 		on:phabButtonIsDown={ startPressHoldFinishRelease }

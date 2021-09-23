@@ -1,5 +1,8 @@
 <script>
 	import { storePhabOnboardingState as phabOnboardingState } from './stores/storephabOnboardingState.js';
+	import { phabCounter } from './stores/storePhabCounter.js';
+	// import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
+	import { oddsEqualActivePress } from './stores/storePhabButtonState.js';
 
 
 	let onBoardingWrapperNode;
@@ -9,23 +12,21 @@
 	let pointerIsDown = false;
 	let activeStep = $phabOnboardingState.steps[0];
 
+	$: if($oddsEqualActivePress > 0 ) { onBoardingControlFlow() }
 
 	// trigger onBoardingControlFlow when pointer is Down
+
 	function onBoardingControlFlow() {
-		if ($phabOnboardingState.skipped || $phabOnboardingState.passedAll) {
-			console.log('if')
-		} else {
-			console.log('run control flow')
+			// console.log('onboarding control flow')
 			activeStep = $phabOnboardingState.steps.find(step => !step.passed);
-			// if(activeStep.requiredCounterValue === $phabCounter) {
-			// 	activeStep.passed = true;
-			// }
-			// console.log(activeStep);
-			// (if activeStep.requiredMinDuration === $phabCounter) {
-			//	activeStep.passed === true;
-			// }
+			if(activeStep.requiredCounterValue === $phabCounter) {
+				activeStep.passed = true;
+			}
+			console.log(activeStep);
+			if (activeStep.requiredMinDuration === $phabCounter) {
+				activeStep.passed === true;
+			}
 			// console.log($phabCounter);
-		}
 	}
 
 
