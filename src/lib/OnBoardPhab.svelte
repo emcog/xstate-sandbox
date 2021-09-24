@@ -1,8 +1,9 @@
 <script>
 	import { storePhabOnboardingState as phabOnboardingState } from './stores/storephabOnboardingState.js';
 	import { phabCounter } from './stores/storePhabCounter.js';
-	// import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
-	import { oddsEqualActivePress } from './stores/storePhabButtonState.js';
+	import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
+	import { fade } from 'svelte/transition';
+
 
 
 	let onBoardingWrapperNode;
@@ -14,28 +15,23 @@
 
 	$: if($oddsEqualActivePress > 0 && $phabCounter > 0 ) { onBoardingControlFlow() }
 
-	// trigger onBoardingControlFlow when pointer is Down
 
 	function onBoardingControlFlow() {
-			// console.log('onboarding control flow')
 			activeStep = $phabOnboardingState.steps.find(step => !step.passed);
 			console.log(activeStep.instruction, activeStep.requiredCounterValue, $phabCounter);
 			if(activeStep.requiredCounterValue <= $phabCounter) {
-				console.log('CONGRATULATIONS YOU PASSED THIS STEP')
 				activeStep.passed = true;
 			}
 	}
 
 
 
-// take counter, compare it to active.requiredcount, if counter >= required count then sent active.passed = true
+
 
 </script>
-<!--<button on:click={onBoardingControlFlow}>test control flow</button>-->
-
-{#if !$phabOnboardingState.skipped }<button on:click={ phabOnboardingState.SKIP } data-testid='skip-onboarding'>Hide text</button>{/if}
-
-{#if !$phabOnboardingState.skipped }<p>{ activeStep.instruction }</p>{/if}
+{#if !$phabOnboardingState.skipped } <span>{ activeStep.instruction }</span>{/if}
+<!--todo test out changing onboarding store back to custom Or -->
+{#if !$phabOnboardingState.skipped }<button on:click={ phabOnboardingState.skipped.set(true) } data-testid='skip-onboarding'>Hide text</button>{/if}
 
 <style>
     button {
@@ -61,4 +57,5 @@
         color: white;
         margin-bottom: 75px;
     }
+
 </style>

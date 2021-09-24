@@ -9,7 +9,7 @@ export const storePhabOnboardingState = writable({
 			requiredCounterValue: 50,
 			passed: false,
 			get interrupted() {
-				phabOnboardingState.progress.pressAndHoldTheButton.instruction;
+				storePhabOnboardingState.steps[0].instruction;
 			},
 			node: undefined
 		},

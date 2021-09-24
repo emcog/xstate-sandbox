@@ -1,13 +1,11 @@
 <script>
 	// ---> Svelte core
 	import { onMount } from 'svelte';
-	// import { storePhabOnboardingState as phabOnboardingState } from './stores/storePhabOnboardingState.js';
 	import { oddsEqualActivePress } from './stores/storePhabButtonState.js';
 	import { phabCounter } from './stores/storePhabCounter.js';
 
 // ---> Svelte component
 	import PressHoldButton from './PressHoldButton.svelte'
-	import PhabTextDisplay from '$lib/PhabTextDisplay.svelte'
 	import ExpandingCollapsingCircle from '$lib/ExpandingCollapsingCircle.svelte'
 	import OnBoardPhab from '$lib/OnBoardPhab.svelte';
 
@@ -225,7 +223,6 @@
 
 <div>
 	<ExpandingCollapsingCircle />
-	<PhabTextDisplay />
 	<PressHoldButton
 		on:phabButtonIsUp={ startReleaseFinishPressHold }
 		on:phabButtonIsDown={ startPressHoldFinishRelease }
