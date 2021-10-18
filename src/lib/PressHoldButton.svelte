@@ -2,6 +2,7 @@
 	import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
 	import { useMachine } from '@xstate/svelte';
 	import { createMachine } from 'xstate';
+	import { toggleService } from './machines/toggleMachine';
 
 	function handlePhabButtonUp() {
 		oddsEqualActivePress.update(n => n + 1);
@@ -15,20 +16,20 @@
 	}
 
 
-	const toggleMachine = createMachine({
-	id: 'toggle',
-		initial: 'inactive',
-		states: {
-		inactive: {
-			on: { TOGGLE: 'active' }
-		},
-		active: {
-			on: { TOGGLE: 'inactive' }
-		}
-	}
-	});
-
-	const { state, send } = useMachine(toggleMachine);
+	// const toggleMachine = createMachine({
+	// id: 'toggle',
+	// 	initial: 'inactive',
+	// 	states: {
+	// 	inactive: {
+	// 		on: { TOGGLE: 'active' }
+	// 	},
+	// 	active: {
+	// 		on: { TOGGLE: 'inactive' }
+	// 	}
+	// }
+	// });
+	//
+	// const { state, send } = useMachine(toggleMachine);
 
 </script>
 
@@ -38,10 +39,10 @@
 				on:touchstart={ handlePhabButtonDown }
 				on:mouseup={ handlePhabButtonUp }
 				on:touchend={ handlePhabButtonUp }
-				on:click={() => send('TOGGLE')}>
-					{$state.value === 'inactive'
-					? 'Click to activate'
-					: 'Active! Click to deactivate'}
+				on:click={() => toggleService.send('TOGGLE')}>
+				{$toggleService.value === 'inactive'
+				? 'Click to activate'
+				: 'Active! Click to deactivate'}
 	>
 </button>
 
