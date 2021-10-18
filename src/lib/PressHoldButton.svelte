@@ -2,19 +2,19 @@
 	import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
 	// import { useMachine } from '@xstate/svelte';
 	// import { createMachine } from 'xstate';
-	import { toggleService } from './machines/toggleMachine';
+	import { togglePressReleaseService } from './machines/togglePressReleaseMachine';
 
 	function handlePhabButtonUp() {
 		oddsEqualActivePress.update(n => n + 1);
 		console.log('handlePhabButtonUp – oddsEqualActivePress', $oddsEqualActivePress % 2 )
-		toggleService.send('TOGGLE')
+		togglePressReleaseService.send('TOGGLE')
 	}
 
 
 	function handlePhabButtonDown() {
 		oddsEqualActivePress.update(n => n + 1);
 		console.log('handlePhabButtonDown – oddsEqualActivePress', $oddsEqualActivePress % 2 )
-		toggleService.send('TOGGLE')
+		togglePressReleaseService.send('TOGGLE')
 	}
 
 </script>
