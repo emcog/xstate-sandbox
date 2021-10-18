@@ -24,6 +24,8 @@ const togglePressReleaseMachine = createMachine(
 			},
 			press: {
 				on: {
+					//todo implement increment counter activity
+					//todo implement entry action
 					TOGGLE: {
 						target: 'release',
 						actions: assign({ releaseCount: incrementReleaseCount })
@@ -31,6 +33,8 @@ const togglePressReleaseMachine = createMachine(
 				}
 			},
 			release: {
+				//todo implement decrement counter activity
+				// todo implement guard which sets state to inactive after period of time after counter hits 0
 				on: {
 					TOGGLE: {
 						target: 'press',
