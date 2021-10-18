@@ -1,4 +1,6 @@
-	const toggleMachine = createMachine({
+import { createMachine, interpret } from 'xstate';
+
+const toggleMachine = createMachine({
 	id: 'toggle',
 		initial: 'inactive',
 		states: {

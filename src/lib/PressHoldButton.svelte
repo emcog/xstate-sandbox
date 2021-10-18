@@ -1,37 +1,25 @@
 <script>
 	import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
-	import { useMachine } from '@xstate/svelte';
-	import { createMachine } from 'xstate';
+	// import { useMachine } from '@xstate/svelte';
+	// import { createMachine } from 'xstate';
 	import { toggleService } from './machines/toggleMachine';
 
 	function handlePhabButtonUp() {
 		oddsEqualActivePress.update(n => n + 1);
 		console.log('handlePhabButtonUp – oddsEqualActivePress', $oddsEqualActivePress % 2 )
+		toggleService.send('TOGGLE')
 	}
 
 
 	function handlePhabButtonDown() {
 		oddsEqualActivePress.update(n => n + 1);
 		console.log('handlePhabButtonDown – oddsEqualActivePress', $oddsEqualActivePress % 2 )
+		toggleService.send('TOGGLE')
 	}
 
-
-	// const toggleMachine = createMachine({
-	// id: 'toggle',
-	// 	initial: 'inactive',
-	// 	states: {
-	// 	inactive: {
-	// 		on: { TOGGLE: 'active' }
-	// 	},
-	// 	active: {
-	// 		on: { TOGGLE: 'inactive' }
-	// 	}
-	// }
-	// });
-	//
-	// const { state, send } = useMachine(toggleMachine);
-
 </script>
+
+
 
 
 <button id="press-hold-button"
@@ -39,11 +27,12 @@
 				on:touchstart={ handlePhabButtonDown }
 				on:mouseup={ handlePhabButtonUp }
 				on:touchend={ handlePhabButtonUp }
-				on:click={() => toggleService.send('TOGGLE')}>
+				>
+
 				{$toggleService.value === 'inactive'
-				? 'Click to activate'
-				: 'Active! Click to deactivate'}
-	>
+		? "Released"
+		: "Pressing"}
+
 </button>
 
 <style>
