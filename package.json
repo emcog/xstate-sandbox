@@ -44,5 +44,9 @@
 			"@testing-library/jest-dom/extend-expect"
 		]
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"@xstate/svelte": "^0.2.0",
+		"xstate": "^4.25.0"
+	}
 }

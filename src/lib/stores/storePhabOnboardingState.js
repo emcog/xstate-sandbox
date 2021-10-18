@@ -7,6 +7,10 @@ export const storePhabOnboardingState = writable({
 		{
 			instruction: 'Press and hold the button',
 			requiredCounterValue: 50,
+			THISBOUND: function() {
+				// console.log('this')
+				return 'this is a string'
+			},
 			passed: false,
 			get interrupted() {
 				storePhabOnboardingState.steps[0].instruction;
@@ -109,18 +113,3 @@ export const storePhabOnboardingState = writable({
 			}
 		}
 	});
-
-
-// export const activeStep =
-// 	derived([ storePhabOnboardingState, phabCounter], ([$storePhabOnboardingState, $phabCounter]) =>
-// 		$steps[$counter]);
-
-
-// activeStep = storePhabOnboardingState.steps.find(step => step.passed === false)
-// activeStep = storePhabOnboardingState.steps.find(step => !step.passed)
-
-
-/* derive active step from the counter 
-activeStep is defined by: find the step which is not passed
-when activeStep.requiredCounterValue === counter value, set activeStep.passed = true
- */

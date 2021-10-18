@@ -1,5 +1,6 @@
 <script>
 	import { storePhabOnboardingState as phabOnboardingState } from './stores/storephabOnboardingState.js';
+	import { storePhabOnboardingState } from './stores/storephabOnboardingState.js';
 	import { phabCounter } from './stores/storePhabCounter.js';
 	import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
 	import { fade } from 'svelte/transition';
@@ -29,9 +30,11 @@
 
 
 </script>
-{#if !$phabOnboardingState.skipped } <span>{ activeStep.instruction }</span>{/if}
+<!--{#if !$phabOnboardingState.skipped }<span>{ activeStep.instruction }</span>{/if}-->
 <!--todo test out changing onboarding store back to custom Or -->
-{#if !$phabOnboardingState.skipped }<button on:click={ phabOnboardingState.skipped.set(true) } data-testid='skip-onboarding'>Hide text</button>{/if}
+<!--<button on:click={ $phabOnboardingState.steps[0].THISBOUND }>{ This Bound }</button>-->
+<!--<button on:click={ phabOnboardingState.steps[0].instruction }>what is this?</button>-->
+<!--<button on:click={ phabOnboardingState.skipped.set(true) } data-testid='skip-onboarding'>Hide text</button>-->
 
 <style>
     button {

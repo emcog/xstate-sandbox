@@ -6,6 +6,7 @@
 	};
 </script>
 
+<span>Counter</span>
 <button on:click={increment}>
 	Clicks: {count}
 </button>

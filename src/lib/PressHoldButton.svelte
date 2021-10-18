@@ -1,6 +1,7 @@
 <script>
 	import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
-
+	import { useMachine } from '@xstate/svelte';
+	import { createMachine } from 'xstate';
 
 	function handlePhabButtonUp() {
 		oddsEqualActivePress.update(n => n + 1);
@@ -13,6 +14,22 @@
 		console.log('handlePhabButtonDown – oddsEqualActivePress', $oddsEqualActivePress % 2 )
 	}
 
+
+	const toggleMachine = createMachine({
+	id: 'toggle',
+		initial: 'inactive',
+		states: {
+		inactive: {
+			on: { TOGGLE: 'active' }
+		},
+		active: {
+			on: { TOGGLE: 'inactive' }
+		}
+	}
+	});
+
+	const { state, send } = useMachine(toggleMachine);
+
 </script>
 
 
@@ -20,7 +37,12 @@
 				on:mousedown={ handlePhabButtonDown }
 				on:touchstart={ handlePhabButtonDown }
 				on:mouseup={ handlePhabButtonUp }
-				on:touchend={ handlePhabButtonUp } >
+				on:touchend={ handlePhabButtonUp }
+				on:click={() => send('TOGGLE')}>
+					{$state.value === 'inactive'
+					? 'Click to activate'
+					: 'Active! Click to deactivate'}
+	>
 </button>
 
 <style>
@@ -55,6 +77,21 @@
 
 
     #press-hold-button:hover { cursor: pointer; }
+
+
+
+    #press-hold-button:after {
+      content: 'state: ' attr(data-state);
+      position: absolute;
+      top: 100%;
+      margin-top: 0.5rem;
+      background: black;
+      font-family: monospace;
+      color: white;
+      padding: 0.25rem;
+      border-radius: inherit;
+      white-space: nowrap;
+    }
 
 
     @-webkit-keyframes fade-in-out {
