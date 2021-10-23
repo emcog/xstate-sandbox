@@ -1,8 +1,21 @@
 import { createMachine, interpret, assign } from 'xstate';
 
-const incrementPressCount = (context) => context.pressCount + 1;
-const incrementReleaseCount = (context) => context.releaseCount +1;
+// const incrementPressCount = (context) => context.pressCount + 0;
+const enterRelease = (context) => {
+	context.releaseCount += 1;
+	console.log(context);
+}
 
+const enterPress = (context) => {
+	context.pressCount += 1;
+	console.log(context)
+}
+
+const inactiveTimer = () => {
+	setTimeout(() => {
+		console.log('TIMER');
+	}, 1000);
+}
 
 const togglePressReleaseMachine = createMachine(
 	{
@@ -10,39 +23,39 @@ const togglePressReleaseMachine = createMachine(
 		context: {
 			runningCounter: 0,
 			pressCount: 0,
-			releaseCount: 0
+			releaseCount: 0,
+			timer: false
 		},
 		initial: 'inactive',
 		states: {
 			inactive: {
 				on: {
-					TOGGLE: {
-						target: 'press',
-						actions: assign({ pressCount: incrementPressCount })
-					}
+					TOGGLE: { target: 'press' }
 				}
 			},
 			press: {
+				entry: enterPress,
 				on: {
-					//todo implement increment counter activity
-					//todo implement entry action
-					TOGGLE: {
-						target: 'release',
-						actions: assign({ releaseCount: incrementReleaseCount })
-					}
+					TOGGLE: { target: 'release' }
 				}
 			},
 			release: {
-				//todo implement decrement counter activity
-				// todo implement guard which sets state to inactive after period of time after counter hits 0
+				entry: enterRelease,
 				on: {
-					TOGGLE: {
-						target: 'press',
-						actions: assign({ pressCount: incrementPressCount })
-					}
+					TOGGLE: { target: 'press'	},
+					MINCOUNT: { target: 'idle'}
 				}
+			},
+			idle: {
+				entry: inactiveTimer,
+				on: {
+					TOGGLE: 'press',
+					TIMER: 'inactive'
+				}
+
 			}
-		}
+		},
+
 	});
 
 	export const togglePressReleaseService = interpret(togglePressReleaseMachine).start();
