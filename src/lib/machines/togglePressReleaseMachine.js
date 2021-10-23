@@ -11,12 +11,6 @@ const enterPress = (context) => {
 	console.log(context)
 }
 
-const inactiveTimer = () => {
-	setTimeout(() => {
-		console.log('TIMER');
-	}, 1000);
-}
-
 const togglePressReleaseMachine = createMachine(
 	{
 		id: 'pressHoldRelease',
@@ -47,15 +41,13 @@ const togglePressReleaseMachine = createMachine(
 				}
 			},
 			idle: {
-				entry: inactiveTimer,
 				on: {
-					TOGGLE: 'press',
-					TIMER: 'inactive'
+					TOGGLE: 'press'
+				},
+				after: {
+					2000: {target: 'inactive'}
 				}
-
 			}
-		},
-
+		}
 	});
-
 	export const togglePressReleaseService = interpret(togglePressReleaseMachine).start();
