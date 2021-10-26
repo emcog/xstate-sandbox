@@ -17,6 +17,9 @@
 		togglePressReleaseService.send('TOGGLE')
 	}
 
+	console.log(togglePressReleaseService)
+	console.log(togglePressReleaseService.context)
+
 </script>
 
 
@@ -29,11 +32,12 @@
 				on:touchend={ handlePhabButtonUp }
 				>
 
-				{$toggleService.value === 'inactive'
+				{ $togglePressReleaseService.value === 'inactive'
 		? "Released"
 		: "Pressing"}
-
 </button>
+
+<span> {$togglePressReleaseService.context.runningCounter} </span>
 
 <style>
 

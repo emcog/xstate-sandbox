@@ -1,6 +1,6 @@
 import { createMachine, interpret, assign } from 'xstate';
 
-// const incrementPressCount = (context) => context.pressCount + 0;
+
 const enterRelease = (context) => {
 	context.releaseCount += 1;
 	console.log(context);
@@ -9,6 +9,11 @@ const enterRelease = (context) => {
 const enterPress = (context) => {
 	context.pressCount += 1;
 	console.log(context)
+}
+
+const incRunningCount = (context) => {
+	context.runningCounter += 1;
+	console.log(context.runningCounter)
 }
 
 const togglePressReleaseMachine = createMachine(
@@ -30,7 +35,46 @@ const togglePressReleaseMachine = createMachine(
 			press: {
 				entry: enterPress,
 				on: {
-					TOGGLE: { target: 'release' }
+					LOOP: {
+						actions: ['incRunningCount']
+					}
+				},
+				invoke: {
+					id: 'incInterval',
+					src: (context, event) => (sendBack, onReceive) => {
+						// This will send the 'INC' event to the parent every second
+						setTimeout(() => sendBack('LOOP'), 1000);
+
+						// Perform cleanup
+						// return () => clearInterval(id);
+					}
+				},
+
+
+
+
+				// invoke: {
+				//   id: 'loopingIncCounter',
+				//   src: () => (sendBack, receive) => {
+
+				//   let i;
+
+				//   function onAnimationFrame() {
+				//     sendBack('LOOP');
+				//     i = requestAnimationFrame(onAnimationFrame);
+				//   }
+
+				//   onAnimationFrame();
+				//     return () => {
+				//     cancelAnimationFrame(i);
+				//     }
+				//   }
+				// },
+				on: {
+					TOGGLE: { target: 'release' },
+					LOOP: {
+						actions: ['incRunningCount']
+					}
 				}
 			},
 			release: {
@@ -50,4 +94,3 @@ const togglePressReleaseMachine = createMachine(
 			}
 		}
 	});
-	export const togglePressReleaseService = interpret(togglePressReleaseMachine).start();
