@@ -34,42 +34,30 @@ const togglePressReleaseMachine = createMachine(
 			},
 			press: {
 				entry: enterPress,
-				on: {
-					LOOP: {
-						actions: ['incRunningCount']
-					}
-				},
 				invoke: {
 					id: 'incInterval',
-					src: (context, event) => (sendBack, onReceive) => {
-						// This will send the 'INC' event to the parent every second
-						setTimeout(() => sendBack('LOOP'), 1000);
+					// src: (context, event) => (sendBack, onReceive) => {
 
-						// Perform cleanup
-						// return () => clearInterval(id);
-					}
-				},
+					// This will send the 'INC' event to the parent every second
+					// setTimeout(() => sendBack('LOOP'), 5);
+					// setTimeout(()=> console.log('banana service'), 1000);
 
+					// Perform cleanup
+					// return () => clearInterval(id);
+				// }
+					src: () => (sendBack, receive) => {
+						let i;
+						function onAnimationFrame() {
+						    // sendBack('LOOP');
+							console.log('animation frame')
+						    i = requestAnimationFrame(onAnimationFrame);
+						  }
 
-
-
-				// invoke: {
-				//   id: 'loopingIncCounter',
-				//   src: () => (sendBack, receive) => {
-
-				//   let i;
-
-				//   function onAnimationFrame() {
-				//     sendBack('LOOP');
-				//     i = requestAnimationFrame(onAnimationFrame);
-				//   }
-
-				//   onAnimationFrame();
-				//     return () => {
-				//     cancelAnimationFrame(i);
-				//     }
-				//   }
-				// },
+						  onAnimationFrame();
+						    // return () => {
+						    // cancelAnimationFrame(i);
+						    }
+						  },
 				on: {
 					TOGGLE: { target: 'release' },
 					LOOP: {
@@ -94,3 +82,5 @@ const togglePressReleaseMachine = createMachine(
 			}
 		}
 	});
+
+export const togglePressReleaseService = interpret(togglePressReleaseMachine).start();

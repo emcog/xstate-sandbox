@@ -38,6 +38,8 @@
 </button>
 
 <span> {$togglePressReleaseService.context.runningCounter} </span>
+<span> {$togglePressReleaseService.state} </span>
+<span> {$togglePressReleaseService.value}</span>
 
 <style>
 
