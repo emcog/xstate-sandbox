@@ -33,10 +33,6 @@
 				on:mouseup={ handlePhabButtonUp }
 				on:touchend={ handlePhabButtonUp }
 				>
-
-				{ $togglePressReleaseService.value === 'inactive'
-		? "Released"
-		: "Pressing"}
 </button>
 
 <span> this is the value (state):  {$togglePressReleaseService.value}</span>

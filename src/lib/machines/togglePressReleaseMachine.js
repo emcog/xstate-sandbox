@@ -1,17 +1,35 @@
 import { createMachine, interpret, assign, sendParent } from 'xstate';
 
+// const loopingCounter = (context) => {
+	//doesnt work
+	// let i;
+	// i = requestAnimationFrame(loopingCounter);
+	context.runningCounter + 1;
+// }
+
+const enterRelease = assign({
+	releaseCount: ( context, event) => context.releaseCount + 1;
+});
+
+
+/*
 const enterRelease = (context) => {
 	context.releaseCount += 1;
 	console.log(context);
-}
+	// loopingCounter()
+}*/
 
 const enterPress = (context) => {
 	context.pressCount += 1;
 	console.log(context);
+
+
 }
 
 const incRunningCount = (context) => {
-	context.runningCounter += 1;
+	// context.runningCounter += 1;
+	// console.log('incrementRunningCount');
+	// console.log("context is", context);
 }
 
 const togglePressReleaseMachine = createMachine(
@@ -35,11 +53,16 @@ const togglePressReleaseMachine = createMachine(
 				invoke: {
 					id: 'incInterval',
 					src: () => ( sendParent, receive) => {
-						let i;
+						let animationLoop;
+						let incrementCount = 0;
 						function onAnimationFrame() {
-							sendParent('LOOP');
-							console.log('running counter')
-							i = requestAnimationFrame(onAnimationFrame);
+							// context.runningCounter += 1;
+							// sendParent('LOOP');
+							// incRunningCount();
+							console.log('press animation loop is running' )
+							animationLoop = requestAnimationFrame(onAnimationFrame);
+							incrementCount += 1;
+							console.log('incrementCount', incrementCount);
 						}
 
 						onAnimationFrame();
@@ -73,4 +96,6 @@ const togglePressReleaseMachine = createMachine(
 		}
 	});
 
-export const togglePressReleaseService = interpret(togglePressReleaseMachine).start();
+export const togglePressReleaseService = interpret(togglePressReleaseMachine)
+	.onTransition((state) => console.log("state value", state.value))
+	.start();
