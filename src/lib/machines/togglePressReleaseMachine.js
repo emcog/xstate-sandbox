@@ -1,6 +1,5 @@
 import { createMachine, interpret, assign } from 'xstate';
 
-
 const enterRelease = (context) => {
 	context.releaseCount += 1;
 	console.log(context);
@@ -8,12 +7,11 @@ const enterRelease = (context) => {
 
 const enterPress = (context) => {
 	context.pressCount += 1;
-	console.log(context)
+	console.log(context);
 }
 
 const incRunningCount = (context) => {
 	context.runningCounter += 1;
-	console.log(context.runningCounter)
 }
 
 const togglePressReleaseMachine = createMachine(
@@ -36,24 +34,15 @@ const togglePressReleaseMachine = createMachine(
 				entry: enterPress,
 				invoke: {
 					id: 'incInterval',
-					// src: (context, event) => (sendBack, onReceive) => {
-
-					// This will send the 'INC' event to the parent every second
-					// setTimeout(() => sendBack('LOOP'), 5);
-					// setTimeout(()=> console.log('banana service'), 1000);
-
-					// Perform cleanup
-					// return () => clearInterval(id);
-				// }
-					src: () => (sendBack, receive) => {
+					src: () => (sendParent, receive) => {
 						let i;
 						function onAnimationFrame() {
-						    // sendBack('LOOP');
-							console.log('animation frame')
-						    i = requestAnimationFrame(onAnimationFrame);
-						  }
+							// sendParent('LOOP');
+							console.log('running counter')
+							i = requestAnimationFrame(onAnimationFrame);
+						}
 
-						  onAnimationFrame();
+						onAnimationFrame();
 						    // return () => {
 						    // cancelAnimationFrame(i);
 						    }
@@ -61,7 +50,8 @@ const togglePressReleaseMachine = createMachine(
 				on: {
 					TOGGLE: { target: 'release' },
 					LOOP: {
-						actions: ['incRunningCount']
+						//todo figure out how to trigger action on callback, maybe have to use send
+						// actions: [incRunningCount]
 					}
 				}
 			},
@@ -74,10 +64,10 @@ const togglePressReleaseMachine = createMachine(
 			},
 			idle: {
 				on: {
-					TOGGLE: 'press'
+					// TOGGLE: 'press'
 				},
 				after: {
-					2000: {target: 'inactive'}
+					// 2000: {target: 'inactive'}
 				}
 			}
 		}

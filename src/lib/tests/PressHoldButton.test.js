@@ -4,7 +4,7 @@
 
 import '@testing-library/svelte'
 import { getByTestId, render } from '@testing-library/svelte'
-import PressHoldButton from './PressHoldButton.svelte'
+import PressHoldButton from '../PressHoldButton.svelte'
 
 describe ("Press Hold Button", () => {
 	it("should be visible", () => {

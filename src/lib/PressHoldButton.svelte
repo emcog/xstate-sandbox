@@ -1,7 +1,8 @@
 <script>
+	console.log("bannas in press hold button")
 	import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
-	// import { useMachine } from '@xstate/svelte';
-	// import { createMachine } from 'xstate';
+
+	//xstate machine
 	import { togglePressReleaseService } from './machines/togglePressReleaseMachine';
 
 	function handlePhabButtonUp() {
@@ -17,8 +18,9 @@
 		togglePressReleaseService.send('TOGGLE')
 	}
 
-	console.log(togglePressReleaseService)
-	console.log(togglePressReleaseService.context)
+	// console.log('toggle press release service', togglePressReleaseService)
+	// console.log("toggle press release service context", togglePressReleaseService.context)
+
 
 </script>
 
