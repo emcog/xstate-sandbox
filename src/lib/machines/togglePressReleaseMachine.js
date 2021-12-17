@@ -1,4 +1,4 @@
-import { createMachine, interpret, assign } from 'xstate';
+import { createMachine, interpret, assign, sendParent } from 'xstate';
 
 const enterRelease = (context) => {
 	context.releaseCount += 1;
@@ -34,10 +34,10 @@ const togglePressReleaseMachine = createMachine(
 				entry: enterPress,
 				invoke: {
 					id: 'incInterval',
-					src: () => (sendParent, receive) => {
+					src: () => ( sendParent, receive) => {
 						let i;
 						function onAnimationFrame() {
-							// sendParent('LOOP');
+							sendParent('LOOP');
 							console.log('running counter')
 							i = requestAnimationFrame(onAnimationFrame);
 						}
@@ -64,10 +64,10 @@ const togglePressReleaseMachine = createMachine(
 			},
 			idle: {
 				on: {
-					// TOGGLE: 'press'
+					TOGGLE: 'press'
 				},
 				after: {
-					// 2000: {target: 'inactive'}
+					2000: {target: 'inactive'}
 				}
 			}
 		}
