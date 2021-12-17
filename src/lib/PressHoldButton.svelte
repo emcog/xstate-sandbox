@@ -39,9 +39,7 @@
 		: "Pressing"}
 </button>
 
-<span> {$togglePressReleaseService.context.runningCounter} </span>
-<span> {$togglePressReleaseService.state} </span>
-<span> {$togglePressReleaseService.value}</span>
+<span> this is the value (state):  {$togglePressReleaseService.value}</span>
 
 <style>
 
