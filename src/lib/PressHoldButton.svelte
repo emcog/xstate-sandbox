@@ -1,20 +1,19 @@
 <script>
-	/*
 	// import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
 
 	//xstate machine
 	import { togglePressReleaseService } from './machines/togglePressReleaseMachine';
 
 	function handlePhabButtonUp() {
-		oddsEqualActivePress.update(n => n + 1);
-		console.log('handlePhabButtonUp – oddsEqualActivePress', $oddsEqualActivePress % 2 )
+		// oddsEqualActivePress.update(n => n + 1);
+		// console.log('handlePhabButtonUp – oddsEqualActivePress', $oddsEqualActivePress % 2 )
 		togglePressReleaseService.send('TOGGLE')
 	}
 
 
 	function handlePhabButtonDown() {
-		oddsEqualActivePress.update(n => n + 1);
-		console.log('handlePhabButtonDown – oddsEqualActivePress', $oddsEqualActivePress % 2 )
+		// oddsEqualActivePress.update(n => n + 1);
+		// console.log('handlePhabButtonDown – oddsEqualActivePress', $oddsEqualActivePress % 2 )
 		togglePressReleaseService.send('TOGGLE')
 	}
 
@@ -22,7 +21,7 @@
 	// console.log("toggle press release service context", togglePressReleaseService.context)
 
 
-	 */
+
 </script>
 
 
