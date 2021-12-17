@@ -16,16 +16,18 @@ const incRunningCount = (context) => {
 	context.runningCounter += 1;
 }
 
-// const incrementMachine = createMachine({
-//   id: 'increment',
-//   initial: 'active',
-//   states: {
-//     active: {
+const incrementMachine = createMachine({
+	// needs to send INCREMENT LOOP to parent
+	//  need to keep calling itself
+	id: 'increment',
+	initial: 'active',
+	states: {
+		active: {
+			actions: sendParent('INCREMENT_LOOP')
 
-//       }
-//     }
-//   }
-// })
+		}
+	}
+});
 
 
 /*
@@ -68,6 +70,10 @@ const togglePressReleaseMachine = createMachine(
 			},
 			press: {
 				entry: enterPress,
+				invoke: {
+					id: 'increment',
+					src: incrementMachine
+				},
 				on: {
 					INCREMENT_LOOP: {
 						actions: assign({
