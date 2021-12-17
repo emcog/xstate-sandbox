@@ -1,6 +1,6 @@
 <script>
-	console.log("bannas in press hold button")
-	import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
+	/*
+	// import { oddsEqualActivePress } from '$lib/stores/storePhabButtonState';
 
 	//xstate machine
 	import { togglePressReleaseService } from './machines/togglePressReleaseMachine';
@@ -22,6 +22,7 @@
 	// console.log("toggle press release service context", togglePressReleaseService.context)
 
 
+	 */
 </script>
 
 
