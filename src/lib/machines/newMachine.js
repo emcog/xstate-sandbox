@@ -1,4 +1,5 @@
-import { createMachine } from 'xstate';
+//https://stately.ai/viz/b70612c4-4fd7-4e0e-b755-79d1ad1c816d
+// todo:
 
 import { createMachine, interpret, assign, sendParent } from 'xstate';
 
@@ -30,26 +31,36 @@ const incrementMachine = createMachine({
 });
 
 
-/*
-			// invoke: {
-				// 	id: 'incInterval',
+const incrementMachine = createMachine({
+	// needs to send INCREMENT LOOP to parent
+	//  need to keep calling itself
+	id: 'increment',
+	initial: 'active',
+	states: {
+		active: {
+			entry: 'incrementLoop'
+			// actions: sendParent('INCREMENT_LOOP')
 
-        //   // put the counting logic here
-				// 	src: () => ( sendParent, receive) => {
-				// 		let i;
-				// 		function onAnimationFrame() {
-				// 			sendParent('LOOP');
-				// 			console.log('running counter')
-				// 			i = requestAnimationFrame(onAnimationFrame);
-				// 		}
+		},
+		actions: {
+			incrementLoop: () => (sendParent) => {
+				let i;
 
-						// onAnimationFrame();
-						    // return () => {
-						    // cancelAnimationFrame(i);
-						    // }
-						  // },
+				function onAnimationFrame() {
+					sendParent('ANIMATION_FRAME');
+					i = requestAnimationFrame(onAnimationFrame);
+				}
 
-*/
+				onAnimationFrame();
+				return () => {
+					cancelAnimationFrame(i);
+				}
+			}
+		}
+	}
+});
+
+
 
 
 const togglePressReleaseMachine = createMachine(
