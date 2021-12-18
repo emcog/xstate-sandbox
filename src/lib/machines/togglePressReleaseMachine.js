@@ -1,36 +1,54 @@
 import { createMachine, interpret, assign, sendParent } from 'xstate';
 
-// const loopingCounter = (context) => {
-	//doesnt work
-	// let i;
-	// i = requestAnimationFrame(loopingCounter);
-	context.runningCounter + 1;
-// }
-
-const enterRelease = assign({
-	releaseCount: ( context, event) => context.releaseCount + 1;
-});
-
-
-/*
 const enterRelease = (context) => {
 	context.releaseCount += 1;
 	console.log(context);
-	// loopingCounter()
-}*/
+}
 
 const enterPress = (context) => {
 	context.pressCount += 1;
 	console.log(context);
-
-
 }
 
 const incRunningCount = (context) => {
-	// context.runningCounter += 1;
-	// console.log('incrementRunningCount');
-	// console.log("context is", context);
+	context.runningCounter += 1;
 }
+
+const notifyActive = () => {
+	console.log('active');
+}
+
+const incrementMachine = createMachine({
+	// needs to send INCREMENT LOOP to parent
+	//  need to keep calling itself
+	id: 'increment',
+	initial: 'active',
+	states: {
+		active: {
+			entry: notifyActive
+
+			// actions: sendParent('INCREMENT_LOOP')
+
+		},
+
+
+		/*
+		let i;
+
+		function onAnimationFrame() {
+			sendParent('ANIMATION_FRAME');
+			i = requestAnimationFrame(onAnimationFrame);
+		}
+
+		onAnimationFrame();
+		return () => {
+			cancelAnimationFrame(i);
+			*/
+		// }
+		// }
+	}
+});
+
 
 const togglePressReleaseMachine = createMachine(
 	{
@@ -51,36 +69,26 @@ const togglePressReleaseMachine = createMachine(
 			press: {
 				entry: enterPress,
 				invoke: {
-					id: 'incInterval',
-					src: () => ( sendParent, receive) => {
-						let animationLoop;
-						let incrementCount = 0;
-						function onAnimationFrame() {
-							// context.runningCounter += 1;
-							// sendParent('LOOP');
-							// incRunningCount();
-							console.log('press animation loop is running' )
-							animationLoop = requestAnimationFrame(onAnimationFrame);
-							incrementCount += 1;
-							console.log('incrementCount', incrementCount);
-						}
-
-						onAnimationFrame();
-						    // return () => {
-						    // cancelAnimationFrame(i);
-						    }
-						  },
+					id: 'increment',
+					src: incrementMachine
+				},
 				on: {
-					TOGGLE: { target: 'release' },
-					LOOP: {
-						//todo figure out how to trigger action on callback, maybe have to use send
-						// actions: [incRunningCount]
-					}
+					INCREMENT_LOOP: {
+						actions: assign({
+							runningCounter: (context, event) => context.runningCounter + 1
+						})
+					},
+					TOGGLE: { target: 'release' }
 				}
 			},
 			release: {
 				entry: enterRelease,
 				on: {
+					DECREMENT_LOOP: {
+						actions: assign({
+							runningCounter: (context, event) => context.runningCounter - 1
+						})
+					},
 					TOGGLE: { target: 'press'	},
 					MINCOUNT: { target: 'idle'}
 				}
@@ -93,9 +101,6 @@ const togglePressReleaseMachine = createMachine(
 					2000: {target: 'inactive'}
 				}
 			}
-		}
-	});
+		}});
 
-export const togglePressReleaseService = interpret(togglePressReleaseMachine)
-	.onTransition((state) => console.log("state value", state.value))
-	.start();
+export const togglePressReleaseService = interpret(togglePressReleaseMachine).start();
