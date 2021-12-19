@@ -14,8 +14,9 @@ const incRunningCount = (context) => {
 	context.runningCounter += 1;
 }
 
-const notifyActive = () => {
-	console.log('active');
+const notifyActive = (sendParent) => {
+	console.log('active this is active too');
+	// sendParent('INCREMENT_LOOP');
 }
 
 const incrementMachine = createMachine({
@@ -25,7 +26,8 @@ const incrementMachine = createMachine({
 	initial: 'active',
 	states: {
 		active: {
-			entry: notifyActive
+			// entry: notifyActive
+			entry: [() => ( console.log('active')), notifyActive]
 
 			// actions: sendParent('INCREMENT_LOOP')
 
@@ -74,7 +76,8 @@ const togglePressReleaseMachine = createMachine(
 				},
 				on: {
 					INCREMENT_LOOP: {
-						actions: assign({
+						actions:
+							assign({
 							runningCounter: (context, event) => context.runningCounter + 1
 						})
 					},
