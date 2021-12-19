@@ -26,28 +26,25 @@ const incrementMachine = createMachine({
 	initial: 'active',
 	states: {
 		active: {
-			// entry: notifyActive
-			entry: [() => ( console.log('active')), notifyActive, sendParent("INCREMENT_LOOP")]
+			entry: [
+				() => ( console.log('active')),
+				notifyActive, sendParent("INCREMENT_LOOP"),
+				() => {
+					let i;
 
-			// actions: sendParent('INCREMENT_LOOP')
+					function onAnimationFrame() {
+						// sendParent('INCREMENT_LOOP');
+						console.log('animation frame is running')
+						i = requestAnimationFrame(onAnimationFrame);
+					}
 
+					onAnimationFrame();
+					return () => {
+						cancelAnimationFrame(i);
+					}
+			}
+			]
 		},
-
-
-		/*
-		let i;
-
-		function onAnimationFrame() {
-			sendParent('ANIMATION_FRAME');
-			i = requestAnimationFrame(onAnimationFrame);
-		}
-
-		onAnimationFrame();
-		return () => {
-			cancelAnimationFrame(i);
-			*/
-		// }
-		// }
 	}
 });
 
