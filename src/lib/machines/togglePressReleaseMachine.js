@@ -27,7 +27,7 @@ const incrementMachine = createMachine({
 	states: {
 		active: {
 			// entry: notifyActive
-			entry: [() => ( console.log('active')), notifyActive]
+			entry: [() => ( console.log('active')), notifyActive, sendParent("INCREMENT_LOOP")]
 
 			// actions: sendParent('INCREMENT_LOOP')
 
