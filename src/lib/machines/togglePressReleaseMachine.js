@@ -1,4 +1,4 @@
-import { createMachine, interpret, assign, sendParent } from 'xstate';
+import { createMachine, interpret, assign, sendParent, send } from 'xstate';
 
 const enterRelease = (context) => {
 	context.releaseCount += 1;
@@ -20,9 +20,10 @@ const notifyActive = (sendParent) => {
 }
 
 const incrementMachine = createMachine({
-	// needs to send INCREMENT LOOP to parent
-	//  need to keep calling itself
 	id: 'increment',
+	context: {
+		incrementCounter: 0
+	},
 	initial: 'active',
 	states: {
 		active: {
@@ -31,9 +32,9 @@ const incrementMachine = createMachine({
 				notifyActive, sendParent("INCREMENT_LOOP"),
 				() => {
 					let i;
-
 					function onAnimationFrame() {
-						// sendParent('INCREMENT_LOOP');
+						sendParent("INCREMENT_LOOP");
+						// send({type: 'INCREMENT_LOOP'}, {to: 'pressHoldRelease'});
 						console.log('animation frame is running')
 						i = requestAnimationFrame(onAnimationFrame);
 					}
@@ -103,4 +104,6 @@ const togglePressReleaseMachine = createMachine(
 			}
 		}});
 
-export const togglePressReleaseService = interpret(togglePressReleaseMachine).start();
+export const togglePressReleaseService = interpret(togglePressReleaseMachine)
+	.onTransition((state) => console.log("state value", state.value))
+	.start();
